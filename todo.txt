@@ -1,0 +1,14 @@
+renderer
+notification
+portal
+make ui for todo
+
+zod->done
+localstorage->done
+form hook->dones
+zusstand->done
+block style editor(editor.js)->done
+shadcn ui setup->done
+add/edit route->done
+react-router-dom->done
+tailwind css ->done
