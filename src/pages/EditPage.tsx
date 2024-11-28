@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import useStore from "../store/store";
+import useStore from "../store/editorStore";
 import {
   Card,
   CardDescription,
@@ -8,9 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/card";
-
 import { Button } from "../components/ui/button";
-
+import AlertDialogBox from "../components/AlertDialog";
 interface IEditPageProps {}
 
 const EditPage: React.FunctionComponent<IEditPageProps> = () => {
@@ -25,11 +24,23 @@ const EditPage: React.FunctionComponent<IEditPageProps> = () => {
             <Card className="w-full">
               <CardHeader>
                 <CardTitle className="text-xl">{item.task}</CardTitle>
-                <CardDescription className="text-md">{item.description}</CardDescription>
+                <CardDescription className="text-md">
+                  {item.description}
+                </CardDescription>
               </CardHeader>
 
               <CardFooter className="flex gap-4 p-4">
-                <Button>Edit</Button>
+                <AlertDialogBox
+                  actionText="Yes"
+                  cancelText="No"
+                  title="Delete this task ?"
+                  description={`Are you sure you want to delete this task : ${item.task}?`}
+                >
+                  {" "}
+                  <span className="bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 h-9 px-4 py-2 rounded-sm">
+                    Delete
+                  </span>
+                </AlertDialogBox>
                 <Button variant="destructive">Delete</Button>
               </CardFooter>
             </Card>

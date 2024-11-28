@@ -1,6 +1,7 @@
 import * as React from "react";
 import MyForm from "../components/Form";
-import useStore from "../store/store";
+import useStore from "../store/editorStore";
+import Editor from "../components/Editor/Editor";
 interface IHomePageProps {}
 
 //
@@ -25,6 +26,7 @@ const HomePage: React.FunctionComponent<IHomePageProps> = () => {
           ))}
         </div>
       )}
+      {/* <Editor id="" onChange={} initialContent={} /> */}
     </div>
   );
 };

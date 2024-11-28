@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/Homepage";
 import EditPage from "./pages/EditPage";
-import useStore from "./store/store";
+import useStore from "./store/editorStore";
 
 function App() {
   const tasks = useStore((state) => state.tasks);
