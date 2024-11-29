@@ -12,7 +12,7 @@ const HomePage: React.FunctionComponent<IHomePageProps> = () => {
   const deleteTask = useStore((state) => state.deleteTask);
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col p-2 justify-center   w-auto items-center">
+    <div className="flex md:flex-row flex-col  p-2 pt-4 gap-2 justify-center w-auto ">
       <Button
         variant="default"
         className="mt-4 right-5 bottom-5 fixed"
@@ -22,7 +22,7 @@ const HomePage: React.FunctionComponent<IHomePageProps> = () => {
       </Button>
       <MyForm />
 
-      <div className="flex flex-col justify-start mt-4  items-left md:w-[650px] w-full">
+      <div className="flex flex-col justify-start items-left md:w-[650px] w-full">
         {tasks.length === 0 ? (
           <p className="text-2xl w-full text-center ">No tasks to do</p>
         ) : (
@@ -33,10 +33,9 @@ const HomePage: React.FunctionComponent<IHomePageProps> = () => {
             <Card className="flex w-full justify-between text-justify">
               <div>
                 <CardHeader>
-                  <CardTitle className="text-xl">{item.task}</CardTitle>
+                  <CardTitle className="md:text-xl text-sm">{item.task}</CardTitle>
                 </CardHeader>
               </div>
-
               <CardFooter className="flex gap-4 p-4">
                 <Button variant="default">View</Button>
                 <AlertDialogBox

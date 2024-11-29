@@ -11,38 +11,33 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { formSchema, User } from "../utils/validationSchema";
+import { formSchema, form } from "../utils/validationSchema";
 import { OutputData } from "@editorjs/editorjs";
 import Editor from "./Editor/Editor";
+import { useState } from "react";
 
 const MyForm: React.FC = () => {
   const DEFAULT_INITIAL_DATA = {
     time: new Date().getTime(),
-    blocks: [
-      {
-        type: "header",
-        data: {
-          text: "This is my awesome editor!",
-          level: 1,
-        },
-      },
-    ],
+    blocks: [],
   };
 
   const [editorContent, setEditorContent] =
-    React.useState<OutputData>(DEFAULT_INITIAL_DATA);
-  const inputRef = React.useRef<HTMLInputElement>(null);
+    useState<OutputData>(DEFAULT_INITIAL_DATA);
+  const [shouldReset, setShouldReset] = useState(false);
 
   const {
     register,
     handleSubmit,
     reset,
+    setError,
+    clearErrors,
     formState: { errors },
-  } = useForm<User>({
+  } = useForm<form>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       task: "",
-      description: undefined,
+      description: JSON.stringify(editorContent),
       createdAt: undefined,
       updatedAt: undefined,
       isUpdated: false,
@@ -50,7 +45,20 @@ const MyForm: React.FC = () => {
   });
   const tasks = useStore((state) => state.tasks);
   const addTask = useStore((state) => state.addTask);
-  const onSubmit = (data: User) => {
+
+  const onSubmit = (data: form) => {
+    // Validate editor content manually
+    if (editorContent.blocks.length === 0) {
+      setError("description", {
+        type: "manual",
+        message: "Editor must have at least one block.",
+      });
+      return;
+    }
+
+    // Clear description error if validation passes
+    clearErrors("description");
+
     console.log("editorContent", editorContent);
     const now = new Date();
     if (!data.createdAt) {
@@ -73,7 +81,8 @@ const MyForm: React.FC = () => {
       deadline: new Date(),
       completed: false,
     });
-    setEditorContent(DEFAULT_INITIAL_DATA);
+
+    setShouldReset(true);
     reset();
   };
 
@@ -98,7 +107,7 @@ const MyForm: React.FC = () => {
               <label htmlFor="deadline">Set Deadline</label>
               <input
                 aria-label="Date and time"
-                className=""
+                className="border border-gray-300 rounded-md h-12 p-2"
                 title="Date and time"
                 type="datetime-local"
                 {...register("deadline")}
@@ -112,18 +121,18 @@ const MyForm: React.FC = () => {
                 id="editorjs"
                 defaultData={editorContent}
                 onChange={setEditorContent}
+                shouldReset={shouldReset}
               />
-              {errors.description?.message &&
-                typeof errors.description.message === "string" && (
-                  <p className="text-red-500">{errors.description.message}</p>
-                )}
+              {errors.description && (
+                <p className="text-red-500">{errors.description.message}</p>
+              )}
             </div>
           </CardContent>
           <CardFooter className="flex gap-4 justify-start">
             <Button type="submit" variant="default">
               Submit
             </Button>
-            <Button variant="outline" onClick={() => reset()}>
+            <Button variant="outline" type="reset">
               Reset
             </Button>
           </CardFooter>
