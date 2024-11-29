@@ -1,54 +1,83 @@
 import * as React from "react";
 
 import useStore from "../store/editorStore";
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../components/ui/card";
 import { Button } from "../components/ui/button";
-import AlertDialogBox from "../components/AlertDialog";
+
+import EditComponent from "../components/EditComponent";
+import { useNavigate } from "react-router-dom";
 interface IEditPageProps {}
 
 const EditPage: React.FunctionComponent<IEditPageProps> = () => {
   const tasks = useStore((state) => state.tasks);
+  const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-col  mt-4  items-center text-left md:mx-[30%] px-2 mx-6">
-        <p className="text-2xl w-full ">Task to do:</p>
-        {tasks.map((item, index) => (
-          <div key={index} className="w-full p-2">
-            <Card className="w-full">
-              <CardHeader>
-                <CardTitle className="text-xl">{item.task}</CardTitle>
-                <CardDescription className="text-md">
-                  {item.description}
-                </CardDescription>
-              </CardHeader>
+    <div className="flex flex-col justify-center items-center m-4">
+      <Button
+        variant="default"
+        className="mt-4 right-5 bottom-5 fixed"
+        onClick={() => navigate("/")}
+      >
+        Home Page
+      </Button>
+      <div>
+        {tasks.length === 0 ? (
+          <p>No tasks to do</p>
+        ) : (
+          <p className="text-2xl w-full text-center ">Task to do:</p>
+        )}
+      </div>
 
-              <CardFooter className="flex gap-4 p-4">
-                <AlertDialogBox
-                  actionText="Yes"
-                  cancelText="No"
-                  title="Delete this task ?"
-                  description={`Are you sure you want to delete this task : ${item.task}?`}
-                >
-                  {" "}
-                  <span className="bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 h-9 px-4 py-2 rounded-sm">
-                    Delete
-                  </span>
-                </AlertDialogBox>
-                <Button variant="destructive">Delete</Button>
-              </CardFooter>
-            </Card>
-          </div>
-        ))}
+      <div className="md:grid md:grid-cols-3 flex flex-col ">
+        {tasks.map((item, index) => {
+          const editorContent = JSON.parse(item.description);
+          return (
+            <div key={index} className="p-2 w-full">
+              <EditComponent
+                task={item}
+                index={index}
+                defaultData={editorContent}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 };
 
 export default EditPage;
+
+{
+  /* <Card>
+  <CardHeader>
+    <CardTitle className="text-xl">{item.task}</CardTitle>
+    <CardDescription className="text-md">
+      <Editor
+        id={`editorjs-${index}`}
+        defaultData={editorContent}
+        onChange={() => {}}
+        className="h-42"
+      />
+    </CardDescription>
+  </CardHeader>
+
+  <CardFooter className="flex gap-4 p-4">
+    <Button variant="default">Edit</Button>
+    <AlertDialogBox
+      actionText="Yes"
+      cancelText="No"
+      title="Delete this task ?"
+      description={`Are you sure you want to delete this task : ${item.task}?`}
+      onAction={() => {
+        deleteTask(item.id);
+      }}
+    >
+      {" "}
+      <span className="bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 h-9 px-4 py-2 rounded-sm">
+        Delete
+      </span>
+    </AlertDialogBox>
+  </CardFooter>
+</Card>; */
+}

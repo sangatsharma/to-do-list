@@ -17,6 +17,7 @@ interface IAlertDialogBoxProps {
   cancelText: string;
   actionText: string;
   children: React.ReactNode;
+  onAction: () => void;
 }
 
 const AlertDialogBox: React.FunctionComponent<IAlertDialogBoxProps> = ({
@@ -25,6 +26,7 @@ const AlertDialogBox: React.FunctionComponent<IAlertDialogBoxProps> = ({
   cancelText,
   actionText,
   children,
+  onAction,
 }) => {
   return (
     <AlertDialog>
@@ -36,7 +38,7 @@ const AlertDialogBox: React.FunctionComponent<IAlertDialogBoxProps> = ({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>{cancelText}</AlertDialogCancel>
-          <AlertDialogAction>{actionText}</AlertDialogAction>
+          <AlertDialogAction onClick={onAction}>{actionText}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -1,4 +1,4 @@
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as React from "react";
 import { Input } from "./ui/input";
@@ -12,16 +12,31 @@ import {
   CardTitle,
 } from "./ui/card";
 import { formSchema, User } from "../utils/validationSchema";
+import { OutputData } from "@editorjs/editorjs";
 import Editor from "./Editor/Editor";
 
-interface ITaskFormProps {}
-
 const MyForm: React.FC = () => {
+  const DEFAULT_INITIAL_DATA = {
+    time: new Date().getTime(),
+    blocks: [
+      {
+        type: "header",
+        data: {
+          text: "This is my awesome editor!",
+          level: 1,
+        },
+      },
+    ],
+  };
+
+  const [editorContent, setEditorContent] =
+    React.useState<OutputData>(DEFAULT_INITIAL_DATA);
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
   const {
     register,
     handleSubmit,
     reset,
-    control,
     formState: { errors },
   } = useForm<User>({
     resolver: zodResolver(formSchema),
@@ -35,8 +50,8 @@ const MyForm: React.FC = () => {
   });
   const tasks = useStore((state) => state.tasks);
   const addTask = useStore((state) => state.addTask);
-
   const onSubmit = (data: User) => {
+    console.log("editorContent", editorContent);
     const now = new Date();
     if (!data.createdAt) {
       data.createdAt = now;
@@ -51,18 +66,20 @@ const MyForm: React.FC = () => {
     addTask({
       id: tasks.length + 1,
       task: data.task,
-      description: data.description,
+      description: JSON.stringify(editorContent),
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,
       isUpdated: data.isUpdated,
+      deadline: new Date(),
+      completed: false,
     });
-    console.log("Form Data:", data);
+    setEditorContent(DEFAULT_INITIAL_DATA);
     reset();
   };
 
   return (
-    <div className="flex-col p-4">
-      <Card className="w-[650px]">
+    <div className="flex-col">
+      <Card className="md:w-[650px] w-full">
         <CardHeader>
           <CardTitle className="text-2xl">TO DO LIST</CardTitle>
         </CardHeader>
@@ -78,25 +95,36 @@ const MyForm: React.FC = () => {
               {errors.task && (
                 <p className="text-red-500">{errors.task.message}</p>
               )}
+              <label htmlFor="deadline">Set Deadline</label>
+              <input
+                aria-label="Date and time"
+                className=""
+                title="Date and time"
+                type="datetime-local"
+                {...register("deadline")}
+                placeholder="Set deadline"
+              />
+              {errors.deadline && (
+                <p className="text-red-500">{errors.deadline.message}</p>
+              )}
               <label htmlFor="name">Description</label>
-              {/* <textarea
-                {...register("description")}
-                placeholder="Add description"
-                className="flex h-24 w-full rounded-md border border-input bg-transparent px-3 py-3 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-              /> */}
-           <Editor id="editor-content"  />
+              <Editor
+                id="editorjs"
+                defaultData={editorContent}
+                onChange={setEditorContent}
+              />
               {errors.description?.message &&
                 typeof errors.description.message === "string" && (
                   <p className="text-red-500">{errors.description.message}</p>
                 )}
             </div>
           </CardContent>
-          <CardFooter className="flex gap-4">
+          <CardFooter className="flex gap-4 justify-start">
+            <Button type="submit" variant="default">
+              Submit
+            </Button>
             <Button variant="outline" onClick={() => reset()}>
               Reset
-            </Button>
-            <Button type="submit" variant="default" size="lg">
-              Submit
             </Button>
           </CardFooter>
         </form>

@@ -1,10 +1,12 @@
 export interface Task {
   id: number;
   task: string;
-  description: string | undefined;
+  description: string;
   createdAt: Date;
   updatedAt: Date | undefined;
   isUpdated: boolean;
+  deadline: Date;
+  completed: boolean;
 }
 
 export interface Store {
@@ -13,3 +15,4 @@ export interface Store {
   deleteTask: (id: number) => void;
   editTask: (task: Task) => void;
 }
+
