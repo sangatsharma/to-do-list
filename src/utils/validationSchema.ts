@@ -1,12 +1,5 @@
 import { z } from "zod";
 
-const EditorBlockSchema = z.object({
-  type: z.string(),
-  data: z.object({
-    paragraph: z.string(),
-  }),
-});
-
 export const formSchema = z.object({
   task: z.string().min(1, "Task is required"),
   description: z.string().min(1, "Description is required"),
@@ -16,9 +9,11 @@ export const formSchema = z.object({
       (value) => new Date(value) > new Date(),
       "Deadline must be in the future"
     ),
+  priority: z.enum(["low", "medium", "high"]),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
   isUpdated: z.boolean().optional(),
+  status: z.enum(["todo", "inprogress", "completed","overdue"]).optional(),
 });
 
 export type form = z.infer<typeof formSchema>;

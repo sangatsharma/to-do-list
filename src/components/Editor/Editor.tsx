@@ -19,7 +19,7 @@ const Editor: React.FC<EditorProps> = ({
   id,
   className,
   readOnly = false,
-  shouldReset = false,
+  shouldReset,
 }) => {
   const ejInstance = useRef<EditorJS | null>(null);
 
@@ -59,24 +59,18 @@ const Editor: React.FC<EditorProps> = ({
     };
   }, [readOnly]);
 
-  const clearEditor = async () => {
-    if (ejInstance.current) {
-      ejInstance.current.clear();
-      await ejInstance.current.render(defaultData);
-      onChange(defaultData);
-    }
-  };
-
   useEffect(() => {
     if (shouldReset) {
-      clearEditor();
+      ejInstance.current?.destroy();
+      ejInstance.current = null;
+      initEditor();
     }
   }, [shouldReset]);
 
   return (
     <div
       id={id}
-      className={`border w-full h-72 p-2 rounded-md overflow-y-scroll ${className}`}
+      className={`editorContent border w-full ${readOnly?"h-64":"h-72"} p-2 rounded-md overflow-y-scroll ${className}`}
     ></div>
   );
 };

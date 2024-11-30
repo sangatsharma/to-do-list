@@ -26,7 +26,6 @@ const useStore = create<Store>((set) => ({
 
   editTask: (task: Task) =>
     set((state) => {
-      console.log("editing task with id", task.id, task);
       const updatedTasks = state.tasks.map((t) =>
         t.id === task.id ? task : t
       );

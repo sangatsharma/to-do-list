@@ -6,7 +6,9 @@ export interface Task {
   updatedAt: Date | undefined;
   isUpdated: boolean;
   deadline: Date;
-  completed: boolean;
+  priority: "low" | "medium" | "high";
+  status: "todo" | "inprogress" | "completed" |"overdue" |string;
+  notified: boolean;
 }
 
 export interface Store {

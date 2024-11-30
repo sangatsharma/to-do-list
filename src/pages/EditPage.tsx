@@ -3,7 +3,7 @@ import * as React from "react";
 import useStore from "../store/editorStore";
 import { Button } from "../components/ui/button";
 
-import EditComponent from "../components/EditComponent";
+import EditComponent from "../components/Editor/EditComponent";
 import { useNavigate } from "react-router-dom";
 interface IEditPageProps {}
 
@@ -15,7 +15,7 @@ const EditPage: React.FunctionComponent<IEditPageProps> = () => {
     <div className="flex flex-col justify-center items-center m-4">
       <Button
         variant="default"
-        className="mt-4 right-5 bottom-5 fixed"
+        className="right-2 top-2 fixed z-10"
         onClick={() => navigate("/")}
       >
         Home Page
@@ -28,7 +28,7 @@ const EditPage: React.FunctionComponent<IEditPageProps> = () => {
         )}
       </div>
 
-      <div className="md:grid md:grid-cols-3 flex flex-col ">
+      <div className={` w-full md:grid md:grid-cols-3 gap-2 flex flex-col`}>
         {tasks.map((item, index) => {
           const editorContent = JSON.parse(item.description);
           return (

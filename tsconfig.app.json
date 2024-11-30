@@ -21,13 +21,12 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-// //from docs shadcn
-//     "baseUrl": ".",
-//     "paths": {
-//       "@/*": [
-//         "./src/*"
-//       ]
-//     }
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
   },
   "include": ["src"]
 }

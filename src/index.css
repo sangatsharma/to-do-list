@@ -59,3 +59,78 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
 }
+
+
+/* Custom css for editor js contents */
+
+/* Define base styles for editor content */
+.editorContent {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333; /* Default text color */
+}
+
+/* Heading styles */
+.editorContent h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #1a202c; /* Dark gray */
+}
+
+.editorContent h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  color: #2d3748;
+}
+
+.editorContent h3 {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #4a5568;
+}
+
+.editorContent h4 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #718096;
+}
+
+.editorContent h5 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #a0aec0;
+}
+
+.editorContent h6 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #cbd5e0;
+}
+
+/* Add spacing between paragraphs */
+.editorContent p {
+  margin-bottom: 1rem;
+}
+
+/* Optional: Styling for links */
+.editorContent a {
+  color: #3182ce; /* Blue */
+  text-decoration: underline;
+}
+
+/* Ensure ordered and unordered lists are styled */
+.editorContent ul {
+  list-style-type: disc;
+  margin-left: 2rem;
+}
+
+.editorContent ol {
+  list-style-type: decimal;
+  margin-left: 2rem;
+}

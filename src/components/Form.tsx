@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as React from "react";
 import { Input } from "./ui/input";
@@ -15,6 +15,7 @@ import { formSchema, form } from "../utils/validationSchema";
 import { OutputData } from "@editorjs/editorjs";
 import Editor from "./Editor/Editor";
 import { useState } from "react";
+import SelectInput from "./Editor/SelectInput";
 
 const MyForm: React.FC = () => {
   const DEFAULT_INITIAL_DATA = {
@@ -32,6 +33,7 @@ const MyForm: React.FC = () => {
     reset,
     setError,
     clearErrors,
+    control,
     formState: { errors },
   } = useForm<form>({
     resolver: zodResolver(formSchema),
@@ -41,6 +43,7 @@ const MyForm: React.FC = () => {
       createdAt: undefined,
       updatedAt: undefined,
       isUpdated: false,
+      priority: "low",
     },
   });
   const tasks = useStore((state) => state.tasks);
@@ -59,7 +62,7 @@ const MyForm: React.FC = () => {
     // Clear description error if validation passes
     clearErrors("description");
 
-    console.log("editorContent", editorContent);
+    console.log("forms values", data);
     const now = new Date();
     if (!data.createdAt) {
       data.createdAt = now;
@@ -76,46 +79,81 @@ const MyForm: React.FC = () => {
       task: data.task,
       description: JSON.stringify(editorContent),
       createdAt: data.createdAt,
-      updatedAt: data.updatedAt,
+      updatedAt: undefined,
       isUpdated: data.isUpdated,
-      deadline: new Date(),
-      completed: false,
+      deadline: new Date(data.deadline),
+      notified: false,
+      priority: data.priority,
+      status: "todo",
     });
-
+    data.priority = "low";
     setShouldReset(true);
     reset();
   };
+  const options = [
+    { value: "low", label: "Low" },
+    { value: "medium", label: "Medium" },
+    { value: "high", label: "High" },
+  ];
 
   return (
-    <div className="flex-col">
+    <div className="flex-col w-full">
       <Card className="md:w-[650px] w-full">
         <CardHeader>
-          <CardTitle className="text-2xl">TO DO LIST</CardTitle>
+          <CardTitle className="text-2xl">
+            {" "}
+            <label htmlFor="task">Add task</label>
+          </CardTitle>
         </CardHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 ">
           <CardContent>
             <div className="flex flex-col space-y-1.5">
-              <label htmlFor="name">Add task</label>
               <Input
                 {...register("task")}
                 placeholder="Add new task"
                 className="h-12"
+                id="task"
               />
               {errors.task && (
                 <p className="text-red-500">{errors.task.message}</p>
               )}
-              <label htmlFor="deadline">Set Deadline</label>
-              <input
-                aria-label="Date and time"
-                className="border border-gray-300 rounded-md h-12 p-2"
-                title="Date and time"
-                type="datetime-local"
-                {...register("deadline")}
-                placeholder="Set deadline"
-              />
-              {errors.deadline && (
-                <p className="text-red-500">{errors.deadline.message}</p>
-              )}
+              <div className="flex gap-6">
+                <div className="flex flex-col">
+                  <label htmlFor="deadline">Set Deadline</label>
+                  <input
+                    aria-label="Date and time"
+                    className="border border-gray-300 rounded-md h-12 p-2"
+                    title="Date and time"
+                    type="datetime-local"
+                    {...register("deadline")}
+                    placeholder="Set deadline"
+                    id="deadline"
+                  />
+                  {errors.deadline && (
+                    <p className="text-red-500">{errors.deadline.message}</p>
+                  )}
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="priority">Set Priority</label>
+                  <Controller
+                    name="priority"
+                    control={control}
+                    render={({ field }) => (
+                      <SelectInput
+                        value="low"
+                        onValueChange={field.onChange}
+                        label="Priority"
+                        options={options}
+                        {...register("priority")}
+                      />
+                    )}
+                  />
+                  {errors.priority && (
+                    <p className="text-red-500">{errors.priority.message}</p>
+                  )}
+                </div>
+              </div>
+
               <label htmlFor="name">Description</label>
               <Editor
                 id="editorjs"
