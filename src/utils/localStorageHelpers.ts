@@ -1,14 +1,23 @@
 import { Task } from "../types/store.types";
+import { isDeadlineOver } from "./dateFormater";
 
-// Utility functions to interact with localStorage
 export const getTasksFromLocalStorage = (): Task[] => {
-    try {
-      return JSON.parse(localStorage.getItem("tasks") || "[]");
-    } catch {
-      return [];
-    }
-  };
-  
-  export const setTasksToLocalStorage = (tasks: Task[]) => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  };
+  try {
+    const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+
+    const updatedTasks = tasks.map((task: Task) => {
+      if (isDeadlineOver(task.deadline) && task.status !== "overdue") {
+        return { ...task, status: "overdue" };
+      }
+      return task;
+    });
+    setTasksToLocalStorage(updatedTasks);
+    return updatedTasks;
+  } catch {
+    return [];
+  }
+};
+
+export const setTasksToLocalStorage = (tasks: Task[]) => {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+};

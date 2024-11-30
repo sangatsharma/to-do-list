@@ -1,8 +1,5 @@
-renderer
-portal
-
-
 completed:
+portal
 make ui for todo
 notification
 zod

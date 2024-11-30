@@ -9,6 +9,7 @@ export interface Task {
   priority: "low" | "medium" | "high";
   status: "todo" | "inprogress" | "completed" |"overdue" |string;
   notified: boolean;
+  warn: boolean;
 }
 
 export interface Store {

@@ -88,7 +88,7 @@ const EditComponent: React.FunctionComponent<IEditComponentProps> = ({
         <Button
           variant="default"
           onClick={() => setReadOnly(false)}
-          className={`${readOnly ? "py-2" : "hidden"} scale-75 md:scale-100`}
+          className={`${readOnly ? "py-2" : "hidden"}`}
         >
           Edit
         </Button>

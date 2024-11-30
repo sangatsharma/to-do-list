@@ -1,22 +1,22 @@
 import * as React from "react";
-import AlertDialogBox from "../components/AlertDialog";
-import { Card, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
-import { dateToString, isDeadlineOver } from "@/utils/dateFormater";
-import SelectInput from "./Editor/SelectInput";
-import ViewModal from "./ViewModal";
+import AlertDialogBox from "../AlertDialog";
+import { Card, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { dateToString } from "@/utils/dateFormater";
+import SelectInput from "../Editor/SelectInput";
 import useStore from "@/store/editorStore";
 import { Task } from "@/types/store.types";
 import { toast } from "react-toastify";
-import {
-  checkDeadlineAhead,
-  playNotificationSound,
-} from "@/utils/notification";
+import CustomModal from "../CustomModal";
+import EditComponent from "../Editor/EditComponent";
+import { Button } from "../ui/button";
+import { playNotificationSound } from "@/utils/notification";
 
 interface IToDoCardProps {
   item: Task;
 }
 
 const ToDoCard: React.FunctionComponent<IToDoCardProps> = ({ item }) => {
+  const [isModalOpen, setIsModalOpen] = React.useState({view: false, editstatus: false});
   const deleteTask = useStore((state) => state.deleteTask);
   const editTask = useStore((state) => state.editTask);
 
@@ -53,38 +53,16 @@ const ToDoCard: React.FunctionComponent<IToDoCardProps> = ({ item }) => {
         return "bg-red-500";
     }
   };
-
-  // Check if the task's deadline is overdue
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      if (isDeadlineOver(item.deadline) && item.status !== "overdue") {
-        toast.warning(`Task "${item.task}" is overdue!`, {
-          position: "top-right",
-          autoClose: 5000,
-          onOpen: playNotificationSound,
-        });
-        editTask({ ...item, status: "overdue" });
-      }
-      if (checkDeadlineAhead(item)) {
-        toast.warning(`Task "${item.task}" deadline is in 10 minutes!`, {
-          position: "top-right",
-          autoClose: 5000,
-          onOpen: playNotificationSound,
-        });
-      }
-    }, 60000);
-
-    return () => clearInterval(interval);
-  }, [item, editTask]);
+  const editorContent = JSON.parse(item.description);
 
   return (
     <Card className="flex w-full justify-between text-justify">
       <div>
         <CardHeader>
-          <CardTitle className="md:text-xl text-sm flex">
+          <CardTitle className="md:text-xl text-sm">
             {item.task}
             <span
-              className={`text-[12px] font-normal italic ${getPriorityClass(
+              className={`text-[12px] p-1 font-normal italic ${getPriorityClass(
                 item.priority
               )} ml-2 text-white px-2 rounded-md`}
             >
@@ -107,11 +85,11 @@ const ToDoCard: React.FunctionComponent<IToDoCardProps> = ({ item }) => {
           </div>
         </CardHeader>
       </div>
-      <CardFooter className="md:flex flex-col items-end gap-2 p-4">
-        <div className="flex gap-2">
+      <CardFooter className="flex flex-col items-end gap-2 p-4">
+        <div className="flex flex-col gap-2 md:flex-row items-end">
           <SelectInput
             label="Status"
-            className={`w-32 text-white ${getStatusClass(item.status)}`}
+            className={`md:w-32 w-auto text-[10px] md:text-[14px]  text-white ${getStatusClass(item.status)} `}
             options={
               item.status === "overdue"
                 ? [
@@ -121,16 +99,36 @@ const ToDoCard: React.FunctionComponent<IToDoCardProps> = ({ item }) => {
                 : progressOptions
             }
             value={item.status}
-            onValueChange={(value) => editTask({ ...item, status: value })}
+            onValueChange={(value) => {
+              if(value === "completed")
+              playNotificationSound("completed");
+              editTask({ ...item, status: value })}}
           />
-          <ViewModal task={item} />
+          <Button onClick={() => setIsModalOpen({...isModalOpen,view:true})}>View</Button>
+          <CustomModal
+            isOpen={isModalOpen.view}
+            onClose={() => setIsModalOpen({view:false,editstatus:false})}
+            title="View Task"
+          >
+            <EditComponent
+              task={item}
+              defaultData={editorContent}
+              index={item.id}
+            />
+          </CustomModal>
         </div>
         <AlertDialogBox
           actionText="Yes"
           cancelText="No"
           title="Delete this task?"
           description={`Are you sure you want to delete this task: ${item.task}?`}
-          onAction={() => deleteTask(item.id)}
+          onAction={() => {
+            toast.info(`Task "${item.task}" is deleted successfully.`, {
+              position: "top-right",
+              autoClose: 5000,
+            });
+            deleteTask(item.id);
+          }}
         >
           <p className="bg-destructive text-primary-foreground py-1 px-2 rounded-md hover:bg-destructive/70">
             Delete
