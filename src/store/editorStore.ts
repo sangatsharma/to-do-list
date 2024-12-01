@@ -31,7 +31,8 @@ const useStore = create<Store>((set) => ({
       );
       setTasksToLocalStorage(updatedTasks);
       return { tasks: updatedTasks };
-    }),
+    })
+    
 }));
 
 export default useStore;

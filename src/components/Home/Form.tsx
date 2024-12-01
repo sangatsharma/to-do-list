@@ -4,13 +4,7 @@ import * as React from "react";
 import { Input } from "../ui/input";
 import useStore from "../../store/editorStore";
 import { Button } from "../ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { formSchema, form } from "../../utils/validationSchema";
 import { OutputData } from "@editorjs/editorjs";
 import Editor from "../Editor/Editor";
@@ -26,7 +20,6 @@ const MyForm: React.FC = () => {
 
   const [editorContent, setEditorContent] =
     useState<OutputData>(DEFAULT_INITIAL_DATA);
-  const [shouldReset, setShouldReset] = useState(false);
 
   const {
     register,
@@ -88,11 +81,11 @@ const MyForm: React.FC = () => {
       priority: data.priority,
       status: "todo",
     });
+    setEditorContent(DEFAULT_INITIAL_DATA);
     toast.success(`Task "${data.task}" added in to do list.`, {
       position: "top-right",
       autoClose: 5000,
     });
-    setShouldReset(true);
     reset();
   };
   const options = [
@@ -104,11 +97,8 @@ const MyForm: React.FC = () => {
   return (
     <div className="flex-col w-full">
       <Card className="md:w-[650px] w-full">
-        <CardHeader>
-          <CardTitle className="text-2xl">
-            {" "}
-            <label htmlFor="task">Add task</label>
-          </CardTitle>
+        <CardHeader className="pl-7">
+          <label htmlFor="task">Add task</label>
         </CardHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 ">
           <CardContent>
@@ -124,7 +114,9 @@ const MyForm: React.FC = () => {
               )}
               <div className="flex flex-col md:flex-row gap-6">
                 <div className="flex flex-col">
-                  <label htmlFor="deadline" className="px-1">Set Deadline</label>
+                  <label htmlFor="deadline" className="px-1">
+                    Set Deadline
+                  </label>
                   <input
                     aria-label="Date and time"
                     className="border border-gray-300 rounded-md h-12 p-2"
@@ -139,13 +131,15 @@ const MyForm: React.FC = () => {
                   )}
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="priority" className="px-1">Set Priority</label>
+                  <label htmlFor="priority" className="px-1">
+                    Set Priority
+                  </label>
                   <Controller
                     name="priority"
                     control={control}
                     render={({ field }) => (
                       <SelectInput
-                      className="h-12"
+                        className="h-12"
                         value="low"
                         onValueChange={field.onChange}
                         label="Priority"
@@ -159,17 +153,19 @@ const MyForm: React.FC = () => {
                   )}
                 </div>
               </div>
-
-              <label htmlFor="name">Description</label>
-              <Editor
-                id="editorjs"
-                defaultData={editorContent}
-                onChange={setEditorContent}
-                shouldReset={shouldReset}
-              />
-              {errors.description && (
-                <p className="text-red-500">{errors.description.message}</p>
-              )}
+              <div className="">
+                <label htmlFor="name" className="pl-1">
+                  Description
+                </label>
+                <Editor
+                  id="editorjs"
+                  defaultData={editorContent}
+                  onChange={setEditorContent}
+                />
+                {errors.description && (
+                  <p className="text-red-500">{errors.description.message}</p>
+                )}
+              </div>
             </div>
           </CardContent>
           <CardFooter className="flex gap-4 justify-start">

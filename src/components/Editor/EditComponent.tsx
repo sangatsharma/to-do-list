@@ -47,9 +47,6 @@ const EditComponent: React.FunctionComponent<IEditComponentProps> = ({
   };
 
   const createdDate = dateToString(task.createdAt);
-  const date = new Date(task.createdAt);
-  const time = date.getTime();
-  console.log(time, "time");
   const updateDate = task.updatedAt
     ? dateToString(task.updatedAt)
     : "Not updated yet";

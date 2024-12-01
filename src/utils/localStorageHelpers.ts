@@ -17,7 +17,11 @@ export const getTasksFromLocalStorage = (): Task[] => {
     return [];
   }
 };
-
 export const setTasksToLocalStorage = (tasks: Task[]) => {
   localStorage.setItem("tasks", JSON.stringify(tasks));
+};
+
+export const getTaskById = (id: number): Task | undefined => {
+  const tasks = getTasksFromLocalStorage();
+  return tasks.find((task) => task.id === id);
 };

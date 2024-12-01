@@ -48,36 +48,3 @@ const EditPage: React.FunctionComponent<IEditPageProps> = () => {
 
 export default EditPage;
 
-{
-  /* <Card>
-  <CardHeader>
-    <CardTitle className="text-xl">{item.task}</CardTitle>
-    <CardDescription className="text-md">
-      <Editor
-        id={`editorjs-${index}`}
-        defaultData={editorContent}
-        onChange={() => {}}
-        className="h-42"
-      />
-    </CardDescription>
-  </CardHeader>
-
-  <CardFooter className="flex gap-4 p-4">
-    <Button variant="default">Edit</Button>
-    <AlertDialogBox
-      actionText="Yes"
-      cancelText="No"
-      title="Delete this task ?"
-      description={`Are you sure you want to delete this task : ${item.task}?`}
-      onAction={() => {
-        deleteTask(item.id);
-      }}
-    >
-      {" "}
-      <span className="bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 h-9 px-4 py-2 rounded-sm">
-        Delete
-      </span>
-    </AlertDialogBox>
-  </CardFooter>
-</Card>; */
-}

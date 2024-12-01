@@ -7,7 +7,7 @@ export interface Task {
   isUpdated: boolean;
   deadline: Date;
   priority: "low" | "medium" | "high";
-  status: "todo" | "inprogress" | "completed" |"overdue" |string;
+  status: "todo" | "inprogress" | "completed" | "overdue" | string;
   notified: boolean;
   warn: boolean;
 }
@@ -18,4 +18,3 @@ export interface Store {
   deleteTask: (id: number) => void;
   editTask: (task: Task) => void;
 }
-

@@ -6,17 +6,18 @@ import SelectInput from "../Editor/SelectInput";
 import useStore from "@/store/editorStore";
 import { Task } from "@/types/store.types";
 import { toast } from "react-toastify";
-import CustomModal from "../CustomModal";
-import EditComponent from "../Editor/EditComponent";
+// import CustomModal from "../CustomModal";
+// import EditComponent from "../Editor/EditComponent";
 import { Button } from "../ui/button";
 import { playNotificationSound } from "@/utils/notification";
+import { useNavigate } from "react-router-dom";
 
 interface IToDoCardProps {
   item: Task;
 }
 
 const ToDoCard: React.FunctionComponent<IToDoCardProps> = ({ item }) => {
-  const [isModalOpen, setIsModalOpen] = React.useState({view: false, editstatus: false});
+  // const [isModalOpen, setIsModalOpen] = React.useState({view: false, editstatus: false});
   const deleteTask = useStore((state) => state.deleteTask);
   const editTask = useStore((state) => state.editTask);
 
@@ -53,10 +54,11 @@ const ToDoCard: React.FunctionComponent<IToDoCardProps> = ({ item }) => {
         return "bg-red-500";
     }
   };
-  const editorContent = JSON.parse(item.description);
+  // const editorContent = JSON.parse(item.description);
+  const navigate = useNavigate();
 
   return (
-    <Card className="flex w-full justify-between text-justify">
+    <Card className="flex w-full justify-between">
       <div>
         <CardHeader>
           <CardTitle className="md:text-xl text-sm">
@@ -89,7 +91,9 @@ const ToDoCard: React.FunctionComponent<IToDoCardProps> = ({ item }) => {
         <div className="flex flex-col gap-2 md:flex-row items-end">
           <SelectInput
             label="Status"
-            className={`md:w-32 w-auto text-[10px] md:text-[14px]  text-white ${getStatusClass(item.status)} `}
+            className={`md:w-32 w-auto text-[10px] md:text-[14px]  text-white ${getStatusClass(
+              item.status
+            )} `}
             options={
               item.status === "overdue"
                 ? [
@@ -100,12 +104,22 @@ const ToDoCard: React.FunctionComponent<IToDoCardProps> = ({ item }) => {
             }
             value={item.status}
             onValueChange={(value) => {
-              if(value === "completed")
-              playNotificationSound("completed");
-              editTask({ ...item, status: value })}}
+              if (value === "completed") playNotificationSound("completed");
+              editTask({ ...item, status: value });
+            }}
           />
-          <Button onClick={() => setIsModalOpen({...isModalOpen,view:true})}>View</Button>
-          <CustomModal
+          <Button
+            onClick={() =>
+              navigate("/view", {
+                state: {task:item },
+              })
+            }
+          >
+            View
+          </Button>
+          
+          {/* <Button onClick={() => setIsModalOpen({...isModalOpen,view:true})}>View</Button>` */}
+          {/* <CustomModal`
             isOpen={isModalOpen.view}
             onClose={() => setIsModalOpen({view:false,editstatus:false})}
             title="View Task"
@@ -115,7 +129,7 @@ const ToDoCard: React.FunctionComponent<IToDoCardProps> = ({ item }) => {
               defaultData={editorContent}
               index={item.id}
             />
-          </CustomModal>
+          </CustomModal> */}
         </div>
         <AlertDialogBox
           actionText="Yes"

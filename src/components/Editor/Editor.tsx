@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import EditorJS, { OutputData } from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import ImageTool from "@editorjs/image";
@@ -10,7 +10,6 @@ interface EditorProps {
   id?: string;
   className?: string;
   readOnly?: boolean;
-  shouldReset?: boolean;
 }
 
 const Editor: React.FC<EditorProps> = ({
@@ -19,21 +18,21 @@ const Editor: React.FC<EditorProps> = ({
   id,
   className,
   readOnly = false,
-  shouldReset,
 }) => {
   const ejInstance = useRef<EditorJS | null>(null);
 
-  const initEditor = () => {
+  const initEditor = useCallback(() => {
     const editor = new EditorJS({
       holder: id,
       onReady: () => {
         ejInstance.current = editor;
       },
       autofocus: true,
+      placeholder: "Enter description here.",
       data: defaultData,
       onChange: async () => {
         const content = await editor.saver.save();
-        console.log("Editor content on change:", content);
+        console.log(JSON.stringify(content));
         onChange(content);
       },
       tools: {
@@ -43,7 +42,7 @@ const Editor: React.FC<EditorProps> = ({
       },
       readOnly: readOnly,
     });
-  };
+  }, [defaultData, readOnly]);
 
   // This will run only once
   useEffect(() => {
@@ -59,18 +58,20 @@ const Editor: React.FC<EditorProps> = ({
     };
   }, [readOnly]);
 
-  useEffect(() => {
-    if (shouldReset) {
-      ejInstance.current?.destroy();
-      ejInstance.current = null;
-      initEditor();
-    }
-  }, [shouldReset]);
+  // useEffect(() => {
+  //   if (shouldReset) {
+  //     ejInstance.current?.clear();
+  //     ejInstance.current = null;
+
+  //   }
+  // }, [shouldReset]);
 
   return (
     <div
       id={id}
-      className={`editorContent border w-full ${readOnly?"h-64":"h-72"} p-2 rounded-md overflow-y-scroll ${className}`}
+      className={`editorContent border w-full ${
+        readOnly ? "h-64" : "h-72"
+      } p-2 rounded-md overflow-y-scroll ${className}`}
     ></div>
   );
 };

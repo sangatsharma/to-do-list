@@ -4,6 +4,7 @@ import HomePage from "./pages/Homepage";
 import EditPage from "./pages/EditPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ViewPage from "./pages/ViewPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/Edit" element={<EditPage />} />
+        <Route path="/View" element={<ViewPage/>}/>
       </Routes>
     </BrowserRouter>
   );

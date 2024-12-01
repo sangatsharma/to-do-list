@@ -4,7 +4,7 @@ import useStore from "../store/editorStore";
 import { Button } from "../components/ui/button";
 import { useNavigate } from "react-router-dom";
 import ToDoList from "@/components/Home/ToDoList";
-("../components/CustomModal");
+
 
 interface IHomePageProps {}
 
@@ -22,7 +22,7 @@ const HomePage: React.FunctionComponent<IHomePageProps> = () => {
         Edit Page
       </Button>
       <div className="w-full xl:w-auto md:w-auto flex flex-col justify-center items-center">
-        <p className="text-xl w-full text-left p-2 font-bold">To Do LIST</p>
+        <p className="text-2xl w-full text-center p-2 ">To Do LIST</p>
         <MyForm />
       </div>
       <ToDoList tasks={tasks} />

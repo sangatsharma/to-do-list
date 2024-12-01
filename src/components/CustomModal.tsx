@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 
 interface ModalProps {
@@ -14,11 +14,31 @@ const CustomModal: React.FunctionComponent<ModalProps> = ({
   title,
   children,
 }) => {
-  if (!isOpen) return null;
+  const modalRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    const handleClickOutside = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyPress);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onClose]);
 
+  if (!isOpen) return null;
   return ReactDOM.createPortal(
     <div className="fixed inset-0 p-2 z-50 transition-all duration-1000 flex items-center justify-center bg-black/85">
-      <div className="relative bg-white w-full max-w-lg rounded-lg shadow-lg p-6">
+      <div
+        ref={modalRef}
+        className="relative bg-white w-full max-w-lg rounded-lg shadow-lg p-6"
+      >
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold">{title}</h2>
           <button
