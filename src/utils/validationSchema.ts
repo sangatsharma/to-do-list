@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const formSchema = z.object({
-  task: z.string().min(1, "Task is required"),
+  task: z.string().min(1, "Task is required").max(150,"Task is too long."),
   description: z.string().min(1, "Description is required"),
   deadline: z
     .string()
