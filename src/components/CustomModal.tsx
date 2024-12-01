@@ -19,16 +19,11 @@ const CustomModal: React.FunctionComponent<ModalProps> = ({
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-    const handleClickOutside = (e: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-        onClose();
-      }
-    };
+    
     window.addEventListener("keydown", handleKeyPress);
-    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
-      document.removeEventListener("mousedown", handleClickOutside);
+    
     };
   }, [onClose]);
 

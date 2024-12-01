@@ -1,3 +1,5 @@
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import AlertDialogBox from "@/components/AlertDialog";
 import CustomModal from "@/components/CustomModal";
 import EditComponent from "@/components/Editor/EditComponent";
@@ -15,39 +17,52 @@ import { Task } from "@/types/store.types";
 import { dateToString } from "@/utils/dateFormater";
 import { getTaskById } from "@/utils/localStorageHelpers";
 import { OutputData } from "@editorjs/editorjs";
-
-import * as React from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
 interface IViewPageProps {}
 
 const ViewPage: React.FunctionComponent<IViewPageProps> = () => {
-  const DATA = useLocation().state;
-  const todo = DATA.task;
+  const location = useLocation();
+  const navigate = useNavigate();
+  const DATA = location.state;
 
-  // Redirect to homepage if no state is provided
-  if (!DATA || !todo) {
-    return <Navigate to="/" />;
-  }
+  const todo = DATA?.task;
 
   const [isModalOpen, setIsModalOpen] = React.useState({
     view: false,
     editstatus: false,
   });
+
   const [task, setTask] = React.useState<Task>(todo);
   const deleteTask = useStore((state) => state.deleteTask);
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!location.state) {
+      navigate("/");
+    }
+  }, [location.state, navigate]);
+
+  // Fetch the task from localStorage on component mount
+  useEffect(() => {
+    if (todo?.id) {
+      const storedTask = getTaskById(todo.id);
+      if (storedTask) {
+        setTask(storedTask);
+      } else {
+        navigate("/"); 
+      }
+    }
+  }, [todo, navigate]);
+
+  if (!todo) {
+    return null;
+  }
+
   const createdDate = dateToString(task.createdAt);
-  const date = new Date(task.createdAt);
-  const time = date.getTime();
-  console.log(time, "time");
   const updateDate = task.updatedAt
     ? dateToString(task.updatedAt)
     : "Not updated yet";
 
-  if (!todo) {
-    return <Navigate to="/" />;
-  }
   return (
     <div className="flex justify-center p-4 text-left w-full">
       <Card className="w-full p-8">
@@ -60,7 +75,7 @@ const ViewPage: React.FunctionComponent<IViewPageProps> = () => {
               </p>
             ) : (
               <p className="text-[12px] opacity-50 italic">
-                created at: {createdDate}
+                Created at: {createdDate}
               </p>
             )}
             <p className="text-[12px] opacity-50 italic">
@@ -105,16 +120,16 @@ const ViewPage: React.FunctionComponent<IViewPageProps> = () => {
           <AlertDialogBox
             actionText="Yes"
             cancelText="No"
-            title="Delete this task ?"
-            description={`Are you sure you want to delete this task : ${task.task}?`}
+            title="Delete this task?"
+            description={`Are you sure you want to delete this task: ${task.task}?`}
             onAction={() => {
               deleteTask(task.id);
               navigate("/");
-              toast.success(`Task${task.task} deleted successfully`);
+              toast.success(`Task ${task.task} deleted successfully`);
             }}
           >
             {" "}
-            <span className="bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90  px-4 py-2 rounded-md">
+            <span className="bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 px-4 py-2 rounded-md">
               Delete
             </span>
           </AlertDialogBox>

@@ -14,6 +14,7 @@ import { Task } from "../../types/store.types";
 import { OutputData } from "@editorjs/editorjs";
 import { dateToString } from "../../utils/dateFormater";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 interface IEditComponentProps {
   task: Task;
@@ -28,6 +29,7 @@ const EditComponent: React.FunctionComponent<IEditComponentProps> = ({
 }) => {
   const deleteTask = useStore((state) => state.deleteTask);
   const editTask = useStore((state) => state.editTask);
+  const navigate = useNavigate();
 
   const [readOnly, setReadOnly] = React.useState(true);
   const [editorContent, setEditorContent] =
@@ -104,6 +106,7 @@ const EditComponent: React.FunctionComponent<IEditComponentProps> = ({
           description={`Are you sure you want to delete this task : ${task.task}?`}
           onAction={() => {
             deleteTask(task.id);
+            navigate("/");
             toast.success("Task deleted successfully");
           }}
         >
