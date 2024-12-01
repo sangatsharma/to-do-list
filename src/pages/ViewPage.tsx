@@ -17,18 +17,24 @@ import { getTaskById } from "@/utils/localStorageHelpers";
 import { OutputData } from "@editorjs/editorjs";
 
 import * as React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 interface IViewPageProps {}
 
 const ViewPage: React.FunctionComponent<IViewPageProps> = () => {
   const DATA = useLocation().state;
   const todo = DATA.task;
+
+  // Redirect to homepage if no state is provided
+  if (!DATA || !todo) {
+    return <Navigate to="/" />;
+  }
+
   const [isModalOpen, setIsModalOpen] = React.useState({
     view: false,
     editstatus: false,
   });
-  const [task, setTask] = React.useState<Task>(DATA.task);
+  const [task, setTask] = React.useState<Task>(todo);
   const deleteTask = useStore((state) => state.deleteTask);
   const navigate = useNavigate();
   const createdDate = dateToString(task.createdAt);
@@ -38,6 +44,10 @@ const ViewPage: React.FunctionComponent<IViewPageProps> = () => {
   const updateDate = task.updatedAt
     ? dateToString(task.updatedAt)
     : "Not updated yet";
+
+  if (!todo) {
+    return <Navigate to="/" />;
+  }
   return (
     <div className="flex justify-center p-4 text-left w-full">
       <Card className="w-full p-8">

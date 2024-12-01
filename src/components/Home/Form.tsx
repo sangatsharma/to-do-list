@@ -20,6 +20,7 @@ const MyForm: React.FC = () => {
 
   const [editorContent, setEditorContent] =
     useState<OutputData>(DEFAULT_INITIAL_DATA);
+  const [editorKey, setEditorKey] = useState<string>("0");
 
   const {
     register,
@@ -82,6 +83,7 @@ const MyForm: React.FC = () => {
       status: "todo",
     });
     setEditorContent(DEFAULT_INITIAL_DATA);
+    setEditorKey((prev) => `${parseInt(prev) + 1}`);
     toast.success(`Task "${data.task}" added in to do list.`, {
       position: "top-right",
       autoClose: 5000,
@@ -137,14 +139,14 @@ const MyForm: React.FC = () => {
                   <Controller
                     name="priority"
                     control={control}
-                    render={({ field }) => (
+                    defaultValue="low"
+                    render={({ field: { value, onChange } }) => (
                       <SelectInput
                         className="h-12"
-                        value="low"
-                        onValueChange={field.onChange}
+                        value={value}
+                        onValueChange={onChange}
                         label="Priority"
                         options={options}
-                        {...register("priority")}
                       />
                     )}
                   />
@@ -158,6 +160,7 @@ const MyForm: React.FC = () => {
                   Description
                 </label>
                 <Editor
+                  editorKey={editorKey}
                   id="editorjs"
                   defaultData={editorContent}
                   onChange={setEditorContent}
@@ -172,7 +175,15 @@ const MyForm: React.FC = () => {
             <Button type="submit" variant="default">
               Submit
             </Button>
-            <Button variant="outline" type="reset">
+            <Button
+              variant="outline"
+              type="button"
+              onClick={() => {
+                setEditorContent(DEFAULT_INITIAL_DATA);
+                setEditorKey((prev) => `${parseInt(prev) + 1}`);
+                reset();
+              }}
+            >
               Reset
             </Button>
           </CardFooter>

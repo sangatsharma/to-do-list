@@ -10,6 +10,7 @@ interface EditorProps {
   id?: string;
   className?: string;
   readOnly?: boolean;
+  editorKey?: string;
 }
 
 const Editor: React.FC<EditorProps> = ({
@@ -18,6 +19,7 @@ const Editor: React.FC<EditorProps> = ({
   id,
   className,
   readOnly = false,
+  editorKey,
 }) => {
   const ejInstance = useRef<EditorJS | null>(null);
 
@@ -44,6 +46,15 @@ const Editor: React.FC<EditorProps> = ({
     });
   }, [defaultData, readOnly]);
 
+  // Destroy and reinitialize editor when editorKey changes
+  useEffect(() => {
+    if (ejInstance.current) {
+      ejInstance.current.destroy();
+      ejInstance.current = null;
+    }
+    initEditor();
+  }, [editorKey]);
+
   // This will run only once
   useEffect(() => {
     if (ejInstance.current === null) {
@@ -57,14 +68,6 @@ const Editor: React.FC<EditorProps> = ({
       }
     };
   }, [readOnly]);
-
-  // useEffect(() => {
-  //   if (shouldReset) {
-  //     ejInstance.current?.clear();
-  //     ejInstance.current = null;
-
-  //   }
-  // }, [shouldReset]);
 
   return (
     <div
