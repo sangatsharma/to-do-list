@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 
 export const dateToString = (date: Date) => {
-  const dateString = format(date, "yyyy-MM-dd HH:mm:ss a");
+  const dateString = format(date, "yyyy-MM-dd hh:mm:ss a");
   return dateString;
 };
 

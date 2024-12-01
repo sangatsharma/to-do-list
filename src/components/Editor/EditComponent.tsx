@@ -13,6 +13,7 @@ import Editor from "./Editor";
 import { Task } from "../../types/store.types";
 import { OutputData } from "@editorjs/editorjs";
 import { dateToString } from "../../utils/dateFormater";
+import { toast } from "react-toastify";
 
 interface IEditComponentProps {
   task: Task;
@@ -103,6 +104,7 @@ const EditComponent: React.FunctionComponent<IEditComponentProps> = ({
           description={`Are you sure you want to delete this task : ${task.task}?`}
           onAction={() => {
             deleteTask(task.id);
+            toast.success("Task deleted successfully");
           }}
         >
           {" "}

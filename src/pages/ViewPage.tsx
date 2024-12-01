@@ -18,6 +18,7 @@ import { OutputData } from "@editorjs/editorjs";
 
 import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 interface IViewPageProps {}
 
 const ViewPage: React.FunctionComponent<IViewPageProps> = () => {
@@ -99,6 +100,7 @@ const ViewPage: React.FunctionComponent<IViewPageProps> = () => {
             onAction={() => {
               deleteTask(task.id);
               navigate("/");
+              toast.success(`Task${task.task} deleted successfully`);
             }}
           >
             {" "}
