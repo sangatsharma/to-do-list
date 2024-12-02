@@ -2,15 +2,13 @@ import { useInfiniteScroll } from "@/utils/apiFunction";
 import { useEffect } from "react";
 
 const InfiniteScroll = () => {
-  const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetching} =
     useInfiniteScroll();
   const loadMore = () => {
     if (hasNextPage) {
       fetchNextPage();
     }
   };
-
-  console.log(data);
   useEffect(() => {
     const handleScroll = () => {
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
@@ -51,11 +49,7 @@ const InfiniteScroll = () => {
           <p>{item.body}</p>
         </div>
       ))}
-
-      {isFetchingNextPage && (
-        <p className="my-5 text-center">Loading more...</p>
-      )}
-      {isFetching && <p className="my-5 text-center">Loading more...</p>}
+      {isFetching && <p className="my-5 text-center">Loading...</p>}
     </div>
   );
 };

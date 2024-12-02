@@ -15,7 +15,6 @@ interface ITaskNotificationsProps {
 const useTaskNotifications = ({ tasks, editTask }: ITaskNotificationsProps) => {
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log("checking for overdue tasks");
       const tasks = useStore.getState().tasks;
       tasks.forEach((item) => {
         if (

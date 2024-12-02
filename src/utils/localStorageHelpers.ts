@@ -14,6 +14,7 @@ export const getTasksFromLocalStorage = (): TTask[] => {
     setTasksToLocalStorage(updatedTasks);
     return updatedTasks;
   } catch {
+    setTasksToLocalStorage([]);
     return [];
   }
 };

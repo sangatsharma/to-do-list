@@ -1,14 +1,14 @@
 import React, { ReactNode, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 
-interface ModalProps {
+interface IModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
   children: ReactNode;
 }
 
-const CustomModal: React.FunctionComponent<ModalProps> = ({
+const CustomModal: React.FunctionComponent<IModalProps> = ({
   isOpen,
   onClose,
   title,

@@ -13,6 +13,10 @@ import SelectInput from "../Editor/SelectInput";
 import { toast } from "react-toastify";
 import { cn } from "@/lib/utils";
 
+interface IEditorRef {
+  clear: () => void;
+}
+
 const MyForm: React.FC = () => {
   const DEFAULT_INITIAL_DATA = {
     time: new Date().getTime(),
@@ -21,7 +25,7 @@ const MyForm: React.FC = () => {
 
   const [editorContent, setEditorContent] =
     useState<OutputData>(DEFAULT_INITIAL_DATA);
-  const [editorKey, setEditorKey] = useState<string>("0");
+  const editorRef = React.useRef<IEditorRef | null>(null);
 
   const {
     register,
@@ -44,6 +48,14 @@ const MyForm: React.FC = () => {
   });
   const tasks = useStore((state) => state.tasks);
   const addTask = useStore((state) => state.addTask);
+  // Reset the form and editor content
+  const handleReset = () => {
+    if (editorRef.current) {
+      editorRef.current.clear();
+    }
+    setEditorContent(DEFAULT_INITIAL_DATA);
+    reset();
+  };
 
   const onSubmit = (data: form) => {
     // Validate editor content manually
@@ -82,12 +94,12 @@ const MyForm: React.FC = () => {
       status: "todo",
     });
     setEditorContent(DEFAULT_INITIAL_DATA);
-    setEditorKey((prev) => `${parseInt(prev) + 1}`);
+
     toast.success(cn("Task", data.task, "added in to do list."), {
       position: "top-right",
       autoClose: 5000,
     });
-    reset();
+    handleReset();
   };
   const options = [
     { value: "low", label: "Low" },
@@ -159,7 +171,7 @@ const MyForm: React.FC = () => {
                   Description
                 </label>
                 <Editor
-                  editorKey={editorKey}
+                  ref={editorRef}
                   id="editorjs"
                   defaultData={editorContent}
                   onChange={setEditorContent}
@@ -174,15 +186,7 @@ const MyForm: React.FC = () => {
             <Button type="submit" variant="default">
               Submit
             </Button>
-            <Button
-              variant="outline"
-              type="button"
-              onClick={() => {
-                setEditorContent(DEFAULT_INITIAL_DATA);
-                setEditorKey((prev) => `${parseInt(prev) + 1}`);
-                reset();
-              }}
-            >
+            <Button variant="outline" type="button" onClick={handleReset}>
               Reset
             </Button>
           </CardFooter>

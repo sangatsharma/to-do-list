@@ -2,7 +2,7 @@ import React from "react";
 import { TItems } from "../../types/blocks.types";
 import { OutputBlockData, OutputData } from "@editorjs/editorjs";
 
-interface BlockRendererProps {
+interface IBlockRendererProps {
   data: OutputData;
 }
 
@@ -54,7 +54,7 @@ const renderBlock = (block: OutputBlockData): React.ReactNode => {
   }
 };
 
-const BlockRenderer: React.FC<BlockRendererProps> = ({ data }) => {
+const BlockRenderer: React.FC<IBlockRendererProps> = ({ data }) => {
   return (
     <div>
       {data.blocks.map((block, index) => (
