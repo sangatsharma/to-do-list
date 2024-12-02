@@ -1,17 +1,9 @@
 import { useInfiniteScroll } from "@/utils/apiFunction";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const InfiniteScroll = () => {
-  const {
-    data,
-    error,
-    isError,
-    isLoading,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-    isFetchingNextPage,
-  } = useInfiniteScroll();
+  const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } =
+    useInfiniteScroll();
   const loadMore = () => {
     if (hasNextPage) {
       fetchNextPage();
