@@ -1,15 +1,15 @@
 import { create } from "zustand";
-import { Store, Task } from "../types/store.types";
+import { TStore, TTask } from "../types/store.types";
 import {
   getTasksFromLocalStorage,
   setTasksToLocalStorage,
 } from "../utils/localStorageHelpers";
 
 // Zustand store
-const useStore = create<Store>((set) => ({
+const useStore = create<TStore>((set) => ({
   tasks: getTasksFromLocalStorage(),
 
-  addTask: (task: Task) =>
+  addTask: (task: TTask) =>
     set((state) => {
       const updatedTasks = [...state.tasks, task];
       setTasksToLocalStorage(updatedTasks);
@@ -24,15 +24,14 @@ const useStore = create<Store>((set) => ({
       return { tasks: updatedTasks };
     }),
 
-  editTask: (task: Task) =>
+  editTask: (task: TTask) =>
     set((state) => {
       const updatedTasks = state.tasks.map((t) =>
         t.id === task.id ? task : t
       );
       setTasksToLocalStorage(updatedTasks);
       return { tasks: updatedTasks };
-    })
-    
+    }),
 }));
 
 export default useStore;

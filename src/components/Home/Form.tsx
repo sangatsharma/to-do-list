@@ -11,6 +11,7 @@ import Editor from "../Editor/Editor";
 import { useState } from "react";
 import SelectInput from "../Editor/SelectInput";
 import { toast } from "react-toastify";
+import { cn } from "@/lib/utils";
 
 const MyForm: React.FC = () => {
   const DEFAULT_INITIAL_DATA = {
@@ -56,8 +57,6 @@ const MyForm: React.FC = () => {
 
     // Clear description error if validation passes
     clearErrors("description");
-
-    console.log("forms values", data);
     const now = new Date();
     if (!data.createdAt) {
       data.createdAt = now;
@@ -84,7 +83,7 @@ const MyForm: React.FC = () => {
     });
     setEditorContent(DEFAULT_INITIAL_DATA);
     setEditorKey((prev) => `${parseInt(prev) + 1}`);
-    toast.success(`Task "${data.task}" added in to do list.`, {
+    toast.success(cn("Task", data.task, "added in to do list."), {
       position: "top-right",
       autoClose: 5000,
     });
@@ -114,14 +113,14 @@ const MyForm: React.FC = () => {
               {errors.task && (
                 <p className="text-red-500">{errors.task.message}</p>
               )}
-              <div className="flex flex-col md:flex-row gap-6">
+              <div className="flex flex-wrap gap-6">
                 <div className="flex flex-col">
                   <label htmlFor="deadline" className="px-1">
                     Set Deadline
                   </label>
                   <input
                     aria-label="Date and time"
-                    className="border border-gray-300 rounded-md h-12 p-2"
+                    className="border border-gray-300 rounded-md h-12 p-2 w-[210px]"
                     title="Date and time"
                     type="datetime-local"
                     {...register("deadline")}
@@ -142,7 +141,7 @@ const MyForm: React.FC = () => {
                     defaultValue="low"
                     render={({ field: { value, onChange } }) => (
                       <SelectInput
-                        className="h-12"
+                        className="h-12 w-[180px]"
                         value={value}
                         onValueChange={onChange}
                         label="Priority"
@@ -155,7 +154,7 @@ const MyForm: React.FC = () => {
                   )}
                 </div>
               </div>
-              <div className="">
+              <div>
                 <label htmlFor="name" className="pl-1">
                   Description
                 </label>

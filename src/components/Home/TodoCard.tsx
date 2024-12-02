@@ -4,20 +4,18 @@ import { Card, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { dateToString } from "@/utils/dateFormater";
 import SelectInput from "../Editor/SelectInput";
 import useStore from "@/store/editorStore";
-import { Task } from "@/types/store.types";
+import { TTask } from "@/types/store.types";
 import { toast } from "react-toastify";
-// import CustomModal from "../CustomModal";
-// import EditComponent from "../Editor/EditComponent";
 import { Button } from "../ui/button";
 import { playNotificationSound } from "@/utils/notification";
 import { useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 interface IToDoCardProps {
-  item: Task;
+  item: TTask;
 }
 
 const ToDoCard: React.FunctionComponent<IToDoCardProps> = ({ item }) => {
-  // const [isModalOpen, setIsModalOpen] = React.useState({view: false, editstatus: false});
   const deleteTask = useStore((state) => state.deleteTask);
   const editTask = useStore((state) => state.editTask);
 
@@ -64,9 +62,10 @@ const ToDoCard: React.FunctionComponent<IToDoCardProps> = ({ item }) => {
           <CardTitle className="md:text-xl text-sm">
             {item.task}
             <span
-              className={`text-[12px] p-1 font-normal italic ${getPriorityClass(
-                item.priority
-              )} ml-2 text-white px-2 rounded-md`}
+              className={cn(
+                "text-[12px] p-1 font-normal italic ml-2 text-white px-2 rounded-md",
+                getPriorityClass(item.priority)
+              )}
             >
               {item.priority.charAt(0).toUpperCase() + item.priority.slice(1)}
             </span>
@@ -91,9 +90,10 @@ const ToDoCard: React.FunctionComponent<IToDoCardProps> = ({ item }) => {
         <div className="flex flex-col gap-2 md:flex-row items-end">
           <SelectInput
             label="Status"
-            className={`md:w-32 w-auto text-[10px] md:text-[14px]  text-white ${getStatusClass(
-              item.status
-            )} `}
+            className={cn(
+              "md:w-32 w-auto text-[10px] md:text-[14px]  text-white",
+              getStatusClass(item.status)
+            )}
             options={
               item.status === "overdue"
                 ? [
@@ -111,25 +111,12 @@ const ToDoCard: React.FunctionComponent<IToDoCardProps> = ({ item }) => {
           <Button
             onClick={() =>
               navigate("/view", {
-                state: {task:item },
+                state: { task: item },
               })
             }
           >
             View
           </Button>
-          
-          {/* <Button onClick={() => setIsModalOpen({...isModalOpen,view:true})}>View</Button>` */}
-          {/* <CustomModal`
-            isOpen={isModalOpen.view}
-            onClose={() => setIsModalOpen({view:false,editstatus:false})}
-            title="View Task"
-          >
-            <EditComponent
-              task={item}
-              defaultData={editorContent}
-              index={item.id}
-            />
-          </CustomModal> */}
         </div>
         <AlertDialogBox
           actionText="Yes"

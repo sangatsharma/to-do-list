@@ -1,5 +1,5 @@
 import React from "react";
-import { Items } from "../../types/blocks.types";
+import { TItems } from "../../types/blocks.types";
 import { OutputBlockData, OutputData } from "@editorjs/editorjs";
 
 interface BlockRendererProps {
@@ -17,7 +17,7 @@ const renderBlock = (block: OutputBlockData): React.ReactNode => {
         case "ordered":
           return (
             <ol type={block.data.meta?.counterType === "numeric" ? "1" : "A"}>
-              {block.data.items?.map((item: Items, index: number) => (
+              {block.data.items?.map((item: TItems, index: number) => (
                 <li key={index}>{item.content}</li>
               ))}
             </ol>
@@ -25,7 +25,7 @@ const renderBlock = (block: OutputBlockData): React.ReactNode => {
         case "unordered":
           return (
             <ul>
-              {block.data.items?.map((item: Items, index: number) => (
+              {block.data.items?.map((item: TItems, index: number) => (
                 <li key={index}>{item.content}</li>
               ))}
             </ul>
@@ -33,7 +33,7 @@ const renderBlock = (block: OutputBlockData): React.ReactNode => {
         case "checklist":
           return (
             <ul>
-              {block.data.items?.map((item: Items, index: number) => (
+              {block.data.items?.map((item: TItems, index: number) => (
                 <li key={index}>
                   <input
                     type="checkbox"

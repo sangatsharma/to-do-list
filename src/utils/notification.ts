@@ -1,4 +1,4 @@
-import { Task } from "../types/store.types";
+import { ITask } from "../types/store.types";
 import { isDeadlineOver } from "./dateFormater";
 
 export const playNotificationSound = (text:string) => {
@@ -6,7 +6,7 @@ export const playNotificationSound = (text:string) => {
   audio.play().catch((error) => console.error("Error playing sound:", error));
 };
 
-export const checkDeadlineAhead = (todo: Task) => {
+export const checkDeadlineAhead = (todo: ITask) => {
   if (todo.notified) return false;
   if (todo.status === "completed") return false;
   if (isDeadlineOver(todo.deadline)) return false;

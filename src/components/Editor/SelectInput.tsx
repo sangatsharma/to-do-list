@@ -15,18 +15,20 @@ interface ISelectInputProps {
   onValueChange: (value: string) => void;
   value: string;
   className?: string;
-  
 }
 
 const SelectInput = React.forwardRef<HTMLDivElement, ISelectInputProps>(
   ({ label, options, onValueChange, value, className }, ref) => {
     return (
       <div ref={ref}>
-        <Select onValueChange={(newValue) => {
-            console.log('Selected value:', newValue); // Debug log
+        <Select
+          onValueChange={(newValue) => {
             onValueChange(newValue);
-          }}defaultValue={value} value={value}>
-          <SelectTrigger className={`w-[180px] ${className}`}>
+          }}
+          defaultValue={value}
+          value={value}
+        >
+          <SelectTrigger className={className}>
             <SelectValue placeholder="Low" />
           </SelectTrigger>
           <SelectContent>
@@ -44,7 +46,5 @@ const SelectInput = React.forwardRef<HTMLDivElement, ISelectInputProps>(
     );
   }
 );
-
-SelectInput.displayName = "SelectInput"; // Optional but useful for debugging
 
 export default SelectInput;

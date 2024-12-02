@@ -10,14 +10,14 @@ import {
 import { Button } from "../ui/button";
 import AlertDialogBox from "../AlertDialog";
 import Editor from "./Editor";
-import { Task } from "../../types/store.types";
+import { TTask } from "../../types/store.types";
 import { OutputData } from "@editorjs/editorjs";
 import { dateToString } from "../../utils/dateFormater";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 interface IEditComponentProps {
-  task: Task;
+  task: TTask;
   index: number;
   defaultData: OutputData;
 }
@@ -45,7 +45,6 @@ const EditComponent: React.FunctionComponent<IEditComponentProps> = ({
         isUpdated: true,
       });
     }
-
     setReadOnly(true);
   };
 
@@ -72,7 +71,6 @@ const EditComponent: React.FunctionComponent<IEditComponentProps> = ({
             Deadline: {dateToString(task.deadline)}
           </p>
         </div>
-
         <CardDescription className="text-md">
           <Editor
             id={`editorjs-${index}`}
@@ -83,7 +81,6 @@ const EditComponent: React.FunctionComponent<IEditComponentProps> = ({
           />
         </CardDescription>
       </CardHeader>
-
       <CardFooter className="flex gap-4 p-4">
         <Button
           variant="default"

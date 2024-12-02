@@ -19,11 +19,10 @@ const CustomModal: React.FunctionComponent<ModalProps> = ({
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-    
+
     window.addEventListener("keydown", handleKeyPress);
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
-    
     };
   }, [onClose]);
 

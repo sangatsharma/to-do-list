@@ -1,4 +1,4 @@
-export interface Task {
+export type TTask= {
   id: number;
   task: string;
   description: string;
@@ -12,9 +12,9 @@ export interface Task {
   warn: boolean;
 }
 
-export interface Store {
-  tasks: Task[];
-  addTask: (task: Task) => void;
+export type TStore ={
+  tasks: TTask[];
+  addTask: (task: TTask) => void;
   deleteTask: (id: number) => void;
-  editTask: (task: Task) => void;
+  editTask: (task: TTask) => void;
 }

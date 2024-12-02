@@ -13,7 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import useStore from "@/store/editorStore";
-import { Task } from "@/types/store.types";
+import { TTask } from "@/types/store.types";
 import { dateToString } from "@/utils/dateFormater";
 import { getTaskById } from "@/utils/localStorageHelpers";
 import { OutputData } from "@editorjs/editorjs";
@@ -33,7 +33,7 @@ const ViewPage: React.FunctionComponent<IViewPageProps> = () => {
     editstatus: false,
   });
 
-  const [task, setTask] = React.useState<Task>(todo);
+  const [task, setTask] = React.useState<TTask>(todo);
   const deleteTask = useStore((state) => state.deleteTask);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const ViewPage: React.FunctionComponent<IViewPageProps> = () => {
       if (storedTask) {
         setTask(storedTask);
       } else {
-        navigate("/"); 
+        navigate("/");
       }
     }
   }, [todo, navigate]);

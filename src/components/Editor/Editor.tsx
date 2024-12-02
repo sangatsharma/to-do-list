@@ -3,6 +3,7 @@ import EditorJS, { OutputData } from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import ImageTool from "@editorjs/image";
 import List from "@editorjs/list";
+import { cn } from "@/lib/utils";
 
 interface EditorProps {
   onChange: (data: OutputData) => void;
@@ -22,19 +23,20 @@ const Editor: React.FC<EditorProps> = ({
   editorKey,
 }) => {
   const ejInstance = useRef<EditorJS | null>(null);
-
   const initEditor = useCallback(() => {
+    if (ejInstance.current) {
+      return;
+    }
     const editor = new EditorJS({
       holder: id,
       onReady: () => {
         ejInstance.current = editor;
       },
       autofocus: true,
-      placeholder: "Enter description here.",
+      // placeholder: "Enter description here.",
       data: defaultData,
       onChange: async () => {
         const content = await editor.saver.save();
-        console.log(JSON.stringify(content));
         onChange(content);
       },
       tools: {
@@ -72,9 +74,10 @@ const Editor: React.FC<EditorProps> = ({
   return (
     <div
       id={id}
-      className={`editorContent border w-full ${
-        readOnly ? "h-64" : "h-72"
-      } p-2 rounded-md overflow-y-scroll ${className}`}
+      className={cn(
+        "editorContent border w-full max-h-64 p-2 rounded-md overflow-y-scroll",
+        className
+      )}
     ></div>
   );
 };
