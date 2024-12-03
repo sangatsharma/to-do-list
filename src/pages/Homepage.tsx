@@ -5,7 +5,6 @@ import { Button } from "../components/ui/button";
 import { useNavigate } from "react-router-dom";
 import ToDoList from "@/components/Home/ToDoList";
 import { ErrorBoundary } from "@/components/Renderer/ErrorBoundry/ErrorBoundry";
-import ViewPage from "./ViewPage";
 interface IHomePageProps {}
 
 const HomePage: React.FunctionComponent<IHomePageProps> = () => {
