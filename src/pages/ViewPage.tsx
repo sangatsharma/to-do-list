@@ -1,23 +1,23 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import AlertDialogBox from "@/components/AlertDialog";
-import CustomModal from "@/components/CustomModal";
-import EditComponent from "@/components/Editor/EditComponent";
-import BlockRenderer from "@/components/Renderer/BlockRenderer";
-import { Button } from "@/components/ui/button";
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import AlertDialogBox from '@/components/AlertDialog';
+import CustomModal from '@/components/CustomModal';
+import EditComponent from '@/components/Editor/EditComponent';
+import BlockRenderer from '@/components/Renderer/BlockRenderer';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import useStore from "@/store/editorStore";
-import { TTask } from "@/types/store.types";
-import { dateToString } from "@/utils/dateFormater";
-import { getTaskById } from "@/utils/localStorageHelpers";
-import { OutputData } from "@editorjs/editorjs";
-import { toast } from "react-toastify";
+} from '@/components/ui/card';
+import useStore from '@/store/editorStore';
+import { TTask } from '@/types/store.types';
+import { dateToString } from '@/utils/dateFormater';
+import { getTaskById } from '@/utils/localStorageHelpers';
+import { OutputData } from '@editorjs/editorjs';
+import { toast } from 'react-toastify';
 
 interface IViewPageProps {}
 
@@ -38,7 +38,7 @@ const ViewPage: React.FunctionComponent<IViewPageProps> = () => {
 
   useEffect(() => {
     if (!location.state) {
-      navigate("/");
+      navigate('/');
     }
   }, [location.state, navigate]);
 
@@ -49,7 +49,7 @@ const ViewPage: React.FunctionComponent<IViewPageProps> = () => {
       if (storedTask) {
         setTask(storedTask);
       } else {
-        navigate("/");
+        navigate('/');
       }
     }
   }, [todo, navigate]);
@@ -61,7 +61,7 @@ const ViewPage: React.FunctionComponent<IViewPageProps> = () => {
   const createdDate = dateToString(task.createdAt);
   const updateDate = task.updatedAt
     ? dateToString(task.updatedAt)
-    : "Not updated yet";
+    : 'Not updated yet';
 
   return (
     <div className="flex justify-center p-4 text-left w-full">
@@ -106,7 +106,7 @@ const ViewPage: React.FunctionComponent<IViewPageProps> = () => {
               if (task) {
                 setTask(task);
               } else {
-                navigate("/");
+                navigate('/');
               }
             }}
             title="View Task"
@@ -124,11 +124,11 @@ const ViewPage: React.FunctionComponent<IViewPageProps> = () => {
             description={`Are you sure you want to delete this task: ${task.task}?`}
             onAction={() => {
               deleteTask(task.id);
-              navigate("/");
+              navigate('/');
               toast.success(`Task ${task.task} deleted successfully`);
             }}
           >
-            {" "}
+            {' '}
             <span className="bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 px-4 py-2 rounded-md">
               Delete
             </span>

@@ -1,5 +1,5 @@
-import React, { ReactNode, useEffect, useRef } from "react";
-import ReactDOM from "react-dom";
+import React, { ReactNode, useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
 
 interface IModalProps {
   isOpen: boolean;
@@ -17,12 +17,12 @@ const CustomModal: React.FunctionComponent<IModalProps> = ({
   const modalRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === 'Escape') onClose();
     };
 
-    window.addEventListener("keydown", handleKeyPress);
+    window.addEventListener('keydown', handleKeyPress);
     return () => {
-      window.removeEventListener("keydown", handleKeyPress);
+      window.removeEventListener('keydown', handleKeyPress);
     };
   }, [onClose]);
 

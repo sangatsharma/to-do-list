@@ -1,10 +1,10 @@
-import * as React from "react";
-import MyForm from "../components/Home/Form";
-import useStore from "../store/editorStore";
-import { Button } from "../components/ui/button";
-import { useNavigate } from "react-router-dom";
-import ToDoList from "@/components/Home/ToDoList";
-import { ErrorBoundary } from "@/components/Renderer/ErrorBoundry/ErrorBoundry";
+import * as React from 'react';
+import MyForm from '../components/Home/Form';
+import useStore from '../store/editorStore';
+import { Button } from '../components/ui/button';
+import { useNavigate } from 'react-router-dom';
+import ToDoList from '@/components/Home/ToDoList';
+import { ErrorBoundary } from '@/components/Renderer/ErrorBoundry/ErrorBoundry';
 interface IHomePageProps {}
 
 const HomePage: React.FunctionComponent<IHomePageProps> = () => {
@@ -16,7 +16,7 @@ const HomePage: React.FunctionComponent<IHomePageProps> = () => {
         <Button
           variant="default"
           className="right-2 top-2 fixed z-10"
-          onClick={() => navigate("/edit")}
+          onClick={() => navigate('/edit')}
         >
           Edit Page
         </Button>

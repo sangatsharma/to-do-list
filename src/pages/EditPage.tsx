@@ -1,9 +1,9 @@
-import * as React from "react";
-import useStore from "../store/editorStore";
-import { Button } from "../components/ui/button";
-import EditComponent from "../components/Editor/EditComponent";
-import { useNavigate } from "react-router-dom";
-import { TTask } from "@/types/store.types";
+import * as React from 'react';
+import useStore from '../store/editorStore';
+import { Button } from '../components/ui/button';
+import EditComponent from '../components/Editor/EditComponent';
+import { useNavigate } from 'react-router-dom';
+import { TTask } from '@/types/store.types';
 interface IEditPageProps {}
 
 const EditPage: React.FunctionComponent<IEditPageProps> = () => {
@@ -14,7 +14,7 @@ const EditPage: React.FunctionComponent<IEditPageProps> = () => {
       <Button
         variant="default"
         className="right-2 top-2 fixed z-10"
-        onClick={() => navigate("/")}
+        onClick={() => navigate('/')}
       >
         Home Page
       </Button>

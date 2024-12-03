@@ -1,20 +1,20 @@
-import * as React from "react";
-import useStore from "../../store/editorStore";
+import * as React from 'react';
+import useStore from '../../store/editorStore';
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
-import { Button } from "../ui/button";
-import AlertDialogBox from "../AlertDialog";
-import Editor from "./Editor";
-import { TTask } from "../../types/store.types";
-import { OutputData } from "@editorjs/editorjs";
-import { dateToString } from "../../utils/dateFormater";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+} from '../ui/card';
+import { Button } from '../ui/button';
+import AlertDialogBox from '../AlertDialog';
+import Editor from './Editor';
+import { TTask } from '../../types/store.types';
+import { OutputData } from '@editorjs/editorjs';
+import { dateToString } from '../../utils/dateFormater';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 interface IEditComponentProps {
   task: TTask;
@@ -50,7 +50,7 @@ const EditComponent: React.FunctionComponent<IEditComponentProps> = ({
   const createdDate = dateToString(task.createdAt);
   const updateDate = task.updatedAt
     ? dateToString(task.updatedAt)
-    : "Not updated yet";
+    : 'Not updated yet';
 
   return (
     <Card>
@@ -84,13 +84,13 @@ const EditComponent: React.FunctionComponent<IEditComponentProps> = ({
         <Button
           variant="default"
           onClick={() => setReadOnly(false)}
-          className={`${readOnly ? "py-2" : "hidden"}`}
+          className={`${readOnly ? 'py-2' : 'hidden'}`}
         >
           Edit
         </Button>
         <Button
           variant="default"
-          className={`${readOnly ? "hidden" : "py-2"}`}
+          className={`${readOnly ? 'hidden' : 'py-2'}`}
           onClick={handleEditSave}
         >
           Save
@@ -102,11 +102,11 @@ const EditComponent: React.FunctionComponent<IEditComponentProps> = ({
           description={`Are you sure you want to delete this task : ${task.task}?`}
           onAction={() => {
             deleteTask(task.id);
-            navigate("/");
-            toast.success("Task deleted successfully");
+            navigate('/');
+            toast.success('Task deleted successfully');
           }}
         >
-          {" "}
+          {' '}
           <span className="bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90  px-4 py-2 rounded-md">
             Delete
           </span>

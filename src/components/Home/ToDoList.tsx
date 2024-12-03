@@ -1,7 +1,7 @@
-import { TTask } from "@/types/store.types";
-import ToDoCard from "./TodoCard";
-import useStore from "@/store/editorStore";
-import useTaskNotifications from "@/hooks/useTaskNotifications";
+import { TTask } from '@/types/store.types';
+import ToDoCard from './TodoCard';
+import useStore from '@/store/editorStore';
+import useTaskNotifications from '@/hooks/useTaskNotifications';
 
 interface IToDoListProps {
   tasks: TTask[];

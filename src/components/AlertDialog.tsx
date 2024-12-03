@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   AlertDialogFooter,
   AlertDialogHeader,
@@ -9,7 +9,7 @@ import {
   AlertDialogDescription,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "./ui/alert-dialog";
+} from './ui/alert-dialog';
 
 interface IAlertDialogBoxProps {
   title: string;

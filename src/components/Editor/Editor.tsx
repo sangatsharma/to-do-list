@@ -4,12 +4,12 @@ import {
   useEffect,
   useImperativeHandle,
   useRef,
-} from "react";
-import EditorJS, { OutputData } from "@editorjs/editorjs";
-import Header from "@editorjs/header";
-import ImageTool from "@editorjs/image";
-import List from "@editorjs/list";
-import { cn } from "@/lib/utils";
+} from 'react';
+import EditorJS, { OutputData } from '@editorjs/editorjs';
+import Header from '@editorjs/header';
+import ImageTool from '@editorjs/image';
+import List from '@editorjs/list';
+import { cn } from '@/lib/utils';
 
 interface IEditorProps {
   onChange: (data: OutputData) => void;
@@ -35,7 +35,7 @@ const Editor = forwardRef<IEditorRef, IEditorProps>(
           ejInstance.current = editor;
         },
         autofocus: true,
-        placeholder: "Enter description here.",
+        placeholder: 'Enter description here.',
         data: defaultData,
         onChange: async () => {
           const content = await editor.saver.save();
@@ -77,7 +77,7 @@ const Editor = forwardRef<IEditorRef, IEditorProps>(
       <div
         id={id}
         className={cn(
-          "editorContent border w-full max-h-64 p-2 rounded-md overflow-y-scroll",
+          'editorContent border w-full max-h-64 p-2 rounded-md overflow-y-scroll',
           className,
         )}
       ></div>

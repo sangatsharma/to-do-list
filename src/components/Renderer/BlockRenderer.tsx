@@ -1,6 +1,6 @@
-import React from "react";
-import { TItems } from "../../types/blocks.types";
-import { OutputBlockData, OutputData } from "@editorjs/editorjs";
+import React from 'react';
+import { TItems } from '../../types/blocks.types';
+import { OutputBlockData, OutputData } from '@editorjs/editorjs';
 
 interface IBlockRendererProps {
   data: OutputData;
@@ -8,21 +8,21 @@ interface IBlockRendererProps {
 
 const renderBlock = (block: OutputBlockData): React.ReactNode => {
   switch (block.type) {
-    case "header":
+    case 'header':
       return React.createElement(`h${block.data.level}`, {}, block.data.text);
-    case "paragraph":
+    case 'paragraph':
       return <p>{block.data.text}</p>;
-    case "list":
+    case 'list':
       switch (block.data.style) {
-        case "ordered":
+        case 'ordered':
           return (
-            <ol type={block.data.meta?.counterType === "numeric" ? "1" : "A"}>
+            <ol type={block.data.meta?.counterType === 'numeric' ? '1' : 'A'}>
               {block.data.items?.map((item: TItems, index: number) => (
                 <li key={index}>{item.content}</li>
               ))}
             </ol>
           );
-        case "unordered":
+        case 'unordered':
           return (
             <ul>
               {block.data.items?.map((item: TItems, index: number) => (
@@ -30,7 +30,7 @@ const renderBlock = (block: OutputBlockData): React.ReactNode => {
               ))}
             </ul>
           );
-        case "checklist":
+        case 'checklist':
           return (
             <ul>
               {block.data.items?.map((item: TItems, index: number) => (

@@ -6,8 +6,8 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import * as React from "react";
+} from '@/components/ui/select';
+import * as React from 'react';
 
 interface ISelectInputProps {
   label: string;

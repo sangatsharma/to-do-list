@@ -1,5 +1,5 @@
-import { useInfiniteScroll } from "@/utils/apiFunction";
-import { useEffect } from "react";
+import { useInfiniteScroll } from '@/utils/apiFunction';
+import { useEffect } from 'react';
 
 const InfiniteScroll = () => {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteScroll();
@@ -15,10 +15,10 @@ const InfiniteScroll = () => {
       }
     };
     if (!hasNextPage) {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     }
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [hasNextPage]);
 
   // Check for insufficient content and load more

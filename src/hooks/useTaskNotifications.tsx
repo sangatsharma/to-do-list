@@ -1,12 +1,12 @@
-import useStore from "@/store/editorStore";
-import { TTask } from "@/types/store.types";
-import { isDeadlineOver } from "@/utils/dateFormater";
+import useStore from '@/store/editorStore';
+import { TTask } from '@/types/store.types';
+import { isDeadlineOver } from '@/utils/dateFormater';
 import {
   checkDeadlineAhead,
   playNotificationSound,
-} from "@/utils/notification";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
+} from '@/utils/notification';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 interface ITaskNotificationsProps {
   tasks: TTask[];
@@ -20,15 +20,15 @@ const useTaskNotifications = ({ tasks, editTask }: ITaskNotificationsProps) => {
         if (
           !item.notified &&
           isDeadlineOver(item.deadline) &&
-          item.status !== "overdue"
+          item.status !== 'overdue'
         ) {
           console.log(`Task "${item.task}" is overdue!`);
           toast.warning(`Task "${item.task}" is overdue!`, {
-            position: "top-right",
+            position: 'top-right',
             autoClose: 5000,
-            onOpen: () => playNotificationSound("notification"),
+            onOpen: () => playNotificationSound('notification'),
           });
-          const updatedItem = { ...item, status: "overdue", notified: true };
+          const updatedItem = { ...item, status: 'overdue', notified: true };
           editTask(updatedItem);
         }
         if (checkDeadlineAhead(item) && !item.warn) {
@@ -42,9 +42,9 @@ const useTaskNotifications = ({ tasks, editTask }: ITaskNotificationsProps) => {
           toast.warning(
             `Task "${item.task}" deadline is in ${minutesDiff} minutes!`,
             {
-              position: "top-right",
+              position: 'top-right',
               autoClose: 5000,
-              onOpen: () => playNotificationSound("notification"),
+              onOpen: () => playNotificationSound('notification'),
             },
           );
           const updatedItem = { ...item, warn: true };

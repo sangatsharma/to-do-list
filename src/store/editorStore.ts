@@ -1,9 +1,9 @@
-import { create } from "zustand";
-import { TStore, TTask } from "../types/store.types";
+import { create } from 'zustand';
+import { TStore, TTask } from '../types/store.types';
 import {
   getTasksFromLocalStorage,
   setTasksToLocalStorage,
-} from "../utils/localStorageHelpers";
+} from '../utils/localStorageHelpers';
 
 // Zustand store
 const useStore = create<TStore>((set) => ({
@@ -19,7 +19,7 @@ const useStore = create<TStore>((set) => ({
   deleteTask: (id: number) =>
     set((state) => {
       const updatedTasks = state.tasks.filter((task) => task.id !== id);
-      console.log("deleting task with id", id);
+      console.log('deleting task with id', id);
       setTasksToLocalStorage(updatedTasks);
       return { tasks: updatedTasks };
     }),

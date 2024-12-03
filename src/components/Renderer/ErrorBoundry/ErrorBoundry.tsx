@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import React from "react";
+import { Button } from '@/components/ui/button';
+import React from 'react';
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -20,7 +20,7 @@ export class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: any, errorInfo: any) {
-    console.log("Error found: ", error, errorInfo);
+    console.log('Error found: ', error, errorInfo);
   }
 
   render() {
@@ -29,7 +29,7 @@ export class ErrorBoundary extends React.Component<
         <div className=" flex flex-col items-center gap-2">
           <h1 className="text-center mt-2">Oops! Something went wrong.</h1>
           <Button
-            variant={"default"}
+            variant={'default'}
             onClick={() => {
               window.location.reload();
             }}

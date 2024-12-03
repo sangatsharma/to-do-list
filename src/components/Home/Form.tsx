@@ -1,17 +1,17 @@
-import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as React from "react";
-import { Input } from "../ui/input";
-import useStore from "../../store/editorStore";
-import { Button } from "../ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
-import { formSchema, form } from "../../utils/validationSchema";
-import { OutputData } from "@editorjs/editorjs";
-import Editor from "../Editor/Editor";
-import { useState } from "react";
-import SelectInput from "../Editor/SelectInput";
-import { toast } from "react-toastify";
-import { cn } from "@/lib/utils";
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as React from 'react';
+import { Input } from '../ui/input';
+import useStore from '../../store/editorStore';
+import { Button } from '../ui/button';
+import { Card, CardContent, CardFooter, CardHeader } from '../ui/card';
+import { formSchema, form } from '../../utils/validationSchema';
+import { OutputData } from '@editorjs/editorjs';
+import Editor from '../Editor/Editor';
+import { useState } from 'react';
+import SelectInput from '../Editor/SelectInput';
+import { toast } from 'react-toastify';
+import { cn } from '@/lib/utils';
 
 interface IEditorRef {
   clear: () => void;
@@ -38,12 +38,12 @@ const MyForm: React.FC = () => {
   } = useForm<form>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      task: "",
+      task: '',
       description: JSON.stringify(editorContent),
       createdAt: undefined,
       updatedAt: undefined,
       isUpdated: false,
-      priority: "low",
+      priority: 'low',
     },
   });
   const tasks = useStore((state) => state.tasks);
@@ -60,15 +60,15 @@ const MyForm: React.FC = () => {
   const onSubmit = (data: form) => {
     // Validate editor content manually
     if (editorContent.blocks.length === 0) {
-      setError("description", {
-        type: "manual",
-        message: "Editor must have at least one block.",
+      setError('description', {
+        type: 'manual',
+        message: 'Editor must have at least one block.',
       });
       return;
     }
 
     // Clear description error if validation passes
-    clearErrors("description");
+    clearErrors('description');
     const now = new Date();
     if (!data.createdAt) {
       data.createdAt = now;
@@ -91,20 +91,20 @@ const MyForm: React.FC = () => {
       notified: false,
       warn: false,
       priority: data.priority,
-      status: "todo",
+      status: 'todo',
     });
     setEditorContent(DEFAULT_INITIAL_DATA);
 
-    toast.success(cn("Task", data.task, "added in to do list."), {
-      position: "top-right",
+    toast.success(cn('Task', data.task, 'added in to do list.'), {
+      position: 'top-right',
       autoClose: 5000,
     });
     handleReset();
   };
   const options = [
-    { value: "low", label: "Low" },
-    { value: "medium", label: "Medium" },
-    { value: "high", label: "High" },
+    { value: 'low', label: 'Low' },
+    { value: 'medium', label: 'Medium' },
+    { value: 'high', label: 'High' },
   ];
 
   return (
@@ -117,7 +117,7 @@ const MyForm: React.FC = () => {
           <CardContent>
             <div className="flex flex-col space-y-1.5 gap-1">
               <Input
-                {...register("task")}
+                {...register('task')}
                 placeholder="Add new task"
                 className="h-12"
                 id="task"
@@ -135,7 +135,7 @@ const MyForm: React.FC = () => {
                     className="border border-gray-300 rounded-md h-12 p-2 w-[210px]"
                     title="Date and time"
                     type="datetime-local"
-                    {...register("deadline")}
+                    {...register('deadline')}
                     placeholder="Set deadline"
                     id="deadline"
                   />

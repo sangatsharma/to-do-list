@@ -6,8 +6,8 @@ export type TTask = {
   updatedAt: Date | undefined;
   isUpdated: boolean;
   deadline: Date;
-  priority: "low" | "medium" | "high";
-  status: "todo" | "inprogress" | "completed" | "overdue" | string;
+  priority: 'low' | 'medium' | 'high';
+  status: 'todo' | 'inprogress' | 'completed' | 'overdue' | string;
   notified: boolean;
   warn: boolean;
 };
