@@ -19,7 +19,6 @@ const useStore = create<TStore>((set) => ({
   deleteTask: (id: number) =>
     set((state) => {
       const updatedTasks = state.tasks.filter((task) => task.id !== id);
-      console.log('deleting task with id', id);
       setTasksToLocalStorage(updatedTasks);
       return { tasks: updatedTasks };
     }),

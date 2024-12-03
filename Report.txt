@@ -2,7 +2,7 @@ Day: 28th November 2024(First day)
 -Joined office at 11 am.
 -Made setup and installation for react project along with packages:
     -Zod
-    -Zusstand
+    -Zustand
     -Editorjs (block style editor)
     -React-router-dom (created routes for /,/view,/edit,/scroll)
     -shadcn
@@ -27,7 +27,8 @@ Day: 2nd December 2024
 
 Day: 3rd December 2024
 -Implemented Error Boundry in to do list.
--Setup and use husky for running npm run build before every push in github.
+-Setup and use husky for running scripts before every push and commit in github.
+-Used and setup Prettier.
 -Self Learning.
 
 

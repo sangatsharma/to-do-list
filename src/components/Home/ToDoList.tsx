@@ -1,6 +1,5 @@
 import { TTask } from '@/types/store.types';
 import ToDoCard from './TodoCard';
-import useStore from '@/store/editorStore';
 import useTaskNotifications from '@/hooks/useTaskNotifications';
 
 interface IToDoListProps {
@@ -8,8 +7,7 @@ interface IToDoListProps {
 }
 
 const ToDoList: React.FunctionComponent<IToDoListProps> = ({ tasks }) => {
-  const editTask = useStore((state) => state.editTask);
-  useTaskNotifications({ tasks, editTask });
+  useTaskNotifications({ tasks });
 
   return (
     <div className="flex flex-col justify-start items-left md:w-[650px] w-full">

@@ -10,9 +10,9 @@ import { toast } from 'react-toastify';
 
 interface ITaskNotificationsProps {
   tasks: TTask[];
-  editTask: (task: TTask) => void;
 }
-const useTaskNotifications = ({ tasks, editTask }: ITaskNotificationsProps) => {
+const useTaskNotifications = ({ tasks }: ITaskNotificationsProps) => {
+  const editTask = useStore((state) => state.editTask);
   useEffect(() => {
     const interval = setInterval(() => {
       const tasks = useStore.getState().tasks;
