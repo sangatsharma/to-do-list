@@ -3,7 +3,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 export const fetchPage = async (pageParam: number): Promise<TPostResponse> => {
   const response = await fetch(
-    `https://jsonplaceholder.typicode.com/posts?_page=${pageParam}`
+    `https://jsonplaceholder.typicode.com/posts?_page=${pageParam}`,
   );
   if (!response.ok) {
     throw new Error("Network response was not ok");

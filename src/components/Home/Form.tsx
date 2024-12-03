@@ -157,6 +157,7 @@ const MyForm: React.FC = () => {
                         value={value}
                         onValueChange={onChange}
                         label="Priority"
+                        id="priority"
                         options={options}
                       />
                     )}
@@ -167,7 +168,7 @@ const MyForm: React.FC = () => {
                 </div>
               </div>
               <div>
-                <label htmlFor="name" className="pl-1">
+                <label htmlFor="editorjs" className="pl-1">
                   Description
                 </label>
                 <Editor

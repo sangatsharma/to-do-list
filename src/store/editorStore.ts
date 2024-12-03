@@ -27,7 +27,7 @@ const useStore = create<TStore>((set) => ({
   editTask: (task: TTask) =>
     set((state) => {
       const updatedTasks = state.tasks.map((t) =>
-        t.id === task.id ? task : t
+        t.id === task.id ? task : t,
       );
       setTasksToLocalStorage(updatedTasks);
       return { tasks: updatedTasks };

@@ -78,11 +78,11 @@ const Editor = forwardRef<IEditorRef, IEditorProps>(
         id={id}
         className={cn(
           "editorContent border w-full max-h-64 p-2 rounded-md overflow-y-scroll",
-          className
+          className,
         )}
       ></div>
     );
-  }
+  },
 );
 
 export default Editor;

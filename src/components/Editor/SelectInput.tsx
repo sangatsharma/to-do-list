@@ -15,10 +15,11 @@ interface ISelectInputProps {
   onValueChange: (value: string) => void;
   value: string;
   className?: string;
+  id: string;
 }
 
 const SelectInput = React.forwardRef<HTMLDivElement, ISelectInputProps>(
-  ({ label, options, onValueChange, value, className }, ref) => {
+  ({ label, options, onValueChange, value, className, id }, ref) => {
     return (
       <div ref={ref}>
         <Select
@@ -33,7 +34,7 @@ const SelectInput = React.forwardRef<HTMLDivElement, ISelectInputProps>(
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>{label}</SelectLabel>
+              <SelectLabel id={id}>{label}</SelectLabel>
               {options.map((option, index) => (
                 <SelectItem key={index} value={option.value}>
                   {option.label}
@@ -44,7 +45,7 @@ const SelectInput = React.forwardRef<HTMLDivElement, ISelectInputProps>(
         </Select>
       </div>
     );
-  }
+  },
 );
 
 export default SelectInput;

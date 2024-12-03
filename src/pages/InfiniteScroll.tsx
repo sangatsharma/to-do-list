@@ -2,8 +2,7 @@ import { useInfiniteScroll } from "@/utils/apiFunction";
 import { useEffect } from "react";
 
 const InfiniteScroll = () => {
-  const { data, fetchNextPage, hasNextPage, isFetching} =
-    useInfiniteScroll();
+  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteScroll();
   const loadMore = () => {
     if (hasNextPage) {
       fetchNextPage();

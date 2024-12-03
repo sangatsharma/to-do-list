@@ -47,7 +47,7 @@ const CustomModal: React.FunctionComponent<IModalProps> = ({
         <div>{children}</div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 };
 

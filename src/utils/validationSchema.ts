@@ -7,7 +7,7 @@ export const formSchema = z.object({
     .string()
     .refine(
       (value) => new Date(value) > new Date(),
-      "Deadline must be in the future"
+      "Deadline must be in the future",
     ),
   priority: z.enum(["low", "medium", "high"]),
   createdAt: z.date().optional(),

@@ -1,4 +1,4 @@
-export type TTask= {
+export type TTask = {
   id: number;
   task: string;
   description: string;
@@ -10,11 +10,11 @@ export type TTask= {
   status: "todo" | "inprogress" | "completed" | "overdue" | string;
   notified: boolean;
   warn: boolean;
-}
+};
 
-export type TStore ={
+export type TStore = {
   tasks: TTask[];
   addTask: (task: TTask) => void;
   deleteTask: (id: number) => void;
   editTask: (task: TTask) => void;
-}
+};

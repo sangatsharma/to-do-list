@@ -1,0 +1,37 @@
+Day: 28th November 2024(First day)
+-Joined office at 11 am.
+-Made setup and installation for react project along with packages:
+    -Zod
+    -Zusstand
+    -Editorjs (block style editor)
+    -React-router-dom (created routes for /,/view,/edit,/scroll)
+    -shadcn
+    -Created Local Storage helpers
+
+Day: 29th November 2024
+-Created Ui for to-do-list app.
+-Implemented Editorjs for taking input for the description.
+-Added features like Add task,edit task, view task and delete task.
+
+Day: 1st December 2024
+-Completed notifications alert for tasks that are overdue and left with <10 minutes deadlines.
+-Implemented block renderer for Editorjs to html elements. Can be seen in view page.
+-Created and used customModal using react Portal.
+-Code refine with hooks.
+-used cn helper utility for classname interpolation.
+
+Day: 2nd December 2024
+-Setup and used tanstack/react-query.
+-Made infinite scroll page using tanstack useInfiniteQuery that fetch data from backend server using api whenever user triggers scroll.
+-Revised Error Boundry in reactJs.
+
+Day: 3rd December 2024
+-Implemented Error Boundry in to do list.
+-Setup and use husky for running npm run build before every push in github.
+-Self Learning.
+
+
+
+ 
+    
+

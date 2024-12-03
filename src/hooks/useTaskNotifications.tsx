@@ -37,7 +37,7 @@ const useTaskNotifications = ({ tasks, editTask }: ITaskNotificationsProps) => {
           const timeDiff = date.getTime() - now.getTime();
           const minutesDiff = Math.floor(timeDiff / (1000 * 60));
           console.log(
-            `Task "${item.task}" deadline is in ${minutesDiff} minutes!`
+            `Task "${item.task}" deadline is in ${minutesDiff} minutes!`,
           );
           toast.warning(
             `Task "${item.task}" deadline is in ${minutesDiff} minutes!`,
@@ -45,7 +45,7 @@ const useTaskNotifications = ({ tasks, editTask }: ITaskNotificationsProps) => {
               position: "top-right",
               autoClose: 5000,
               onOpen: () => playNotificationSound("notification"),
-            }
+            },
           );
           const updatedItem = { ...item, warn: true };
           editTask(updatedItem);
