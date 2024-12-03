@@ -1,7 +1,7 @@
 import { TTask } from "../types/store.types";
 import { isDeadlineOver } from "./dateFormater";
 
-export const playNotificationSound = (text:string) => {
+export const playNotificationSound = (text: string) => {
   const audio = new Audio(`/sounds/${text}.wav`);
   audio.play().catch((error) => console.error("Error playing sound:", error));
 };

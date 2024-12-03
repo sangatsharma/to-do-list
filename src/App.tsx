@@ -18,7 +18,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/Edit" element={<EditPage />} />
           <Route path="/View" element={<ViewPage />} />
-          <Route path="/Scroll" element={<InfiniteScroll/>} />
+          <Route path="/Scroll" element={<InfiniteScroll />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

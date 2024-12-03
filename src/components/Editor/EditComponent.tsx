@@ -36,7 +36,6 @@ const EditComponent: React.FunctionComponent<IEditComponentProps> = ({
     React.useState<OutputData>(defaultData);
   const handleEditSave = () => {
     //check for if edit task isnew or not
-    console.log(editorContent, "editorContent");
     if (task.description !== JSON.stringify(editorContent).trim()) {
       editTask({
         ...task,
