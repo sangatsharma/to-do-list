@@ -75,7 +75,6 @@ const MyForm: React.FC = () => {
       data.updatedAt = undefined;
       data.isUpdated = false;
     } else {
-      data.createdAt = data.createdAt;
       data.updatedAt = now;
       data.isUpdated = true;
     }
