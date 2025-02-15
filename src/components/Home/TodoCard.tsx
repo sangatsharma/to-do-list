@@ -16,43 +16,39 @@ interface IToDoCardProps {
 }
 
 const ToDoCard: React.FunctionComponent<IToDoCardProps> = ({ item }) => {
-  const deleteTask = useStore((state) => state.deleteTask);
-  const editTask = useStore((state) => state.editTask);
+  const { deleteTask, editTask } = useStore((state) => state);
 
   // Options for task progress status
-  const progressOptions = [
-    { value: 'todo', label: 'To Do' },
-    { value: 'inprogress', label: 'In Progress' },
-    { value: 'completed', label: 'Completed' },
-    { value: 'overdue', label: 'Overdue' },
-  ];
+  const progressOptions = React.useMemo(
+    () => [
+      { value: 'todo', label: 'To Do' },
+      { value: 'inprogress', label: 'In Progress' },
+      { value: 'completed', label: 'Completed' },
+      { value: 'overdue', label: 'Overdue' },
+    ],
+    [],
+  );
 
-  // Function to determine className based on task status
+  // Consolidate className logic for status and priority
   const getStatusClass = (status: string) => {
-    switch (status) {
-      case 'inprogress':
-        return 'bg-blue-500';
-      case 'completed':
-        return 'bg-green-500';
-      case 'overdue':
-        return 'bg-red-500 ';
-      default:
-        return 'bg-yellow-500';
-    }
+    const statusClasses: Record<string, string> = {
+      inprogress: 'bg-blue-500',
+      completed: 'bg-green-500',
+      overdue: 'bg-red-500',
+      todo: 'bg-yellow-500',
+    };
+    return statusClasses[status] || statusClasses.todo;
   };
-  // Function to determine className based on task priority
-  const getPriorityClass = (priority: string) => {
-    switch (priority) {
-      case 'low':
-        return 'bg-green-500';
-      case 'medium':
-        return 'bg-blue-500';
 
-      default:
-        return 'bg-red-500';
-    }
+  const getPriorityClass = (priority: string) => {
+    const priorityClasses: Record<string, string> = {
+      low: 'bg-green-500',
+      medium: 'bg-blue-500',
+      high: 'bg-red-500',
+    };
+    return priorityClasses[priority] || priorityClasses.high;
   };
-  // const editorContent = JSON.parse(item.description);
+
   const navigate = useNavigate();
 
   return (
@@ -71,15 +67,11 @@ const ToDoCard: React.FunctionComponent<IToDoCardProps> = ({ item }) => {
             </span>
           </CardTitle>
           <div>
-            {item.updatedAt ? (
-              <p className="text-[12px] opacity-50 italic">
-                Updated at: {dateToString(item.updatedAt)}
-              </p>
-            ) : (
-              <p className="text-[12px] opacity-50 italic">
-                Created at: {dateToString(item.createdAt)}
-              </p>
-            )}
+            <p className="text-[12px] opacity-50 italic">
+              {item.updatedAt
+                ? `Updated at: ${dateToString(item.updatedAt)}`
+                : `Created at: ${dateToString(item.createdAt)}`}
+            </p>
             <p className="text-[12px] opacity-50 italic">
               Deadline: {dateToString(item.deadline)}
             </p>
@@ -89,10 +81,10 @@ const ToDoCard: React.FunctionComponent<IToDoCardProps> = ({ item }) => {
       <CardFooter className="flex flex-col items-end gap-2 p-4">
         <div className="flex flex-col gap-2 md:flex-row items-end">
           <SelectInput
-            id="priority"
+            id="status"
             label="Status"
             className={cn(
-              'md:w-32 w-auto text-[10px] md:text-[14px]  text-white',
+              'md:w-32 w-auto text-[10px] md:text-[14px] text-white',
               getStatusClass(item.status),
             )}
             options={
