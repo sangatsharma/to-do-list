@@ -1,35 +1,94 @@
 Day: 28th November 2024(First day)
 -Joined office at 11 am.
--Made setup and installation for react project along with packages:
-    -Zod
-    -Zustand
+-Made setup and installation for react Ts project (to-do-list) along with packages:
+    -Zod for form validation
+    -Zustand for state management
     -Editorjs (block style editor)
     -React-router-dom (created routes for /,/view,/edit,/scroll)
-    -shadcn
+    -shadcn ui
     -Created Local Storage helpers
 
 Day: 29th November 2024
 -Created Ui for to-do-list app.
 -Implemented Editorjs for taking input for the description.
--Added features like Add task,edit task, view task and delete task.
+-Added features like Add task, edit task, view task and delete task.
 
 Day: 1st December 2024
 -Completed notifications alert for tasks that are overdue and left with <10 minutes deadlines.
 -Implemented block renderer for Editorjs to html elements. Can be seen in view page.
--Created and used customModal using react Portal.
+-Created and used custom Modal using react Portal.
 -Code refine with hooks.
 -used cn helper utility for classname interpolation.
 
 Day: 2nd December 2024
 -Setup and used tanstack/react-query.
 -Made infinite scroll page using tanstack useInfiniteQuery that fetch data from backend server using api whenever user triggers scroll.
--Revised Error Boundry in reactJs.
+-Revised Error Boundary in reactJs.
+-Debugged double rendering issue for editorjs instance.
 
 Day: 3rd December 2024
--Implemented Error Boundry in to do list.
+-Implemented Error Boundary in to do list.
 -Setup and use husky for running scripts before every push and commit in github.
--Used and setup Prettier.
--Self Learning.
+-Setup and  used Prettier.
+-Self Learning NextJs from docs:
+
+
+Day: 4th December 2024
+-Learning NextJs from Docs.
+-Learning tailwind css v4.0 beta from Docs.
+
+Day: 5th December 2024
+-Implemented nextjs app router.
+-Linking pages with app routing.
+-Learned about prefetching.
+-Dynamic content with the router.
+-Started developing ui for figma design in nextjs.
+
+Day: 6th December 2024
+-Continued creating static site for design in nextjs.
+-improved folder structure as suggested by akash.
+
+Day: 8th December 2024
+-Completed creating static site for design in nextjs.
+-created blogs page were dynamic blog is rendered.
+-routing intercepts in blog post page.
+
+Day: 9th December 2024
+-Implemented meta data for page.
+-Auto meta data generator for all blog page.
+-Revised for sitemap generator.
+
+Day: 10th December 2024
+-Created auto sitemap generator for the site links.
+-Created robots.txt record for all pages.
+-Project deployed to vercel.
+-All meta data are working correctly as expected.
+
+Day: 11th December 2024
+-Release note intern repo setup
+-Started creating ui for dashboard
+
+
+Day: 12th December 2024
+-Created ui for dashboard
+-Setup query fetcher using tanstack query
+
+Day: 13th December 2024
+-Created ui for frontend web to view release note.
+
+Day: 13th, 15th, 16th 
+-On leave 
+
+Day: 17th Decmeber 2024
+-Data entry for Aago restaurant and cafe
+
+Day: 18th December 2024
+-Data entry for Paradise cafe
+-Data entry for Tripura.
+
+
+
+
 
 
 

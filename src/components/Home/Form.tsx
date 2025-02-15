@@ -75,7 +75,6 @@ const MyForm: React.FC = () => {
       data.updatedAt = undefined;
       data.isUpdated = false;
     } else {
-      data.createdAt = data.createdAt;
       data.updatedAt = now;
       data.isUpdated = true;
     }
@@ -93,6 +92,7 @@ const MyForm: React.FC = () => {
       priority: data.priority,
       status: 'todo',
     });
+    console.log('data', JSON.stringify(editorContent));
     setEditorContent(DEFAULT_INITIAL_DATA);
 
     toast.success(cn('Task', data.task, 'added in to do list.'), {

@@ -1,0 +1,58 @@
+{
+  "invoices": {
+    "pagination": {
+      "limit": 10,
+      "offset": 0,
+      "currentPage": 0,
+      "totalPages": 1,
+      "totalResult": 10
+    },
+    "data": [
+      {
+        "id": "1",
+        "invoiceNo": "INV-001",
+        "project": {
+          "name": "Project 1",
+          "address": "123 Nepean Highway",
+          "number": "123"
+        },
+        "issued": "12/12/2024",
+        "status": "Awaiting Approval",
+        "dueAmount": 1000,
+        "paidAmount": 33452,
+        "credits": 1000,
+        "totalAmount": 56050
+      },
+      {
+        "id": "2",
+        "invoiceNo": "INV-002",
+        "project": {
+          "name": "Project 2",
+          "address": "123 Nepean Highway",
+          "number": "123"
+        },
+        "issued": "12/12/2024",
+        "status": "Overdue by 30 days",
+        "dueAmount": 2000,
+        "paidAmount": 33452,
+        "credits": 1000,
+        "totalAmount": 56050
+      },
+      {
+        "id": "3",
+        "invoiceNo": "INV-003",
+        "project": {
+          "name": "Project 3",
+          "address": "123 Nepean Highway",
+          "number": "123"
+        },
+        "issued": "12/12/2024",
+        "status": "Paid",
+        "dueAmount": 3000,
+        "paidAmount": 33452,
+        "credits": 1000,
+        "totalAmount": 56050
+      }
+    ]
+  }
+}
