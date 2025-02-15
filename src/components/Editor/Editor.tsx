@@ -22,41 +22,58 @@ interface IEditorRef {
   clear: () => void;
 }
 
+const initializeEditor = (
+  editorRef: React.MutableRefObject<EditorJS | null>,
+  didMountRef: React.MutableRefObject<boolean>,
+  id: string | undefined,
+  defaultData: OutputData,
+  onChange: (data: OutputData) => void,
+  readOnly: boolean,
+) => {
+  if (didMountRef.current) return;
+  didMountRef.current = true;
+  const editor = new EditorJS({
+    holder: id,
+    onReady: () => {
+      editorRef.current = editor;
+    },
+    autofocus: true,
+    placeholder: 'Enter description here.',
+    data: defaultData,
+    onChange: async () => {
+      const content = await editor.saver.save();
+      onChange(content);
+    },
+    tools: {
+      header: Header,
+      list: List,
+      image: ImageTool,
+    },
+    readOnly: readOnly,
+  });
+};
+
 const Editor = forwardRef<IEditorRef, IEditorProps>(
   ({ onChange, defaultData, id, className, readOnly = false }, ref) => {
     const ejInstance = useRef<EditorJS | null>(null);
     const didMount = useRef(false);
+
     const initEditor = useCallback(() => {
-      if (didMount.current) return;
-      didMount.current = true;
-      const editor = new EditorJS({
-        holder: id,
-        onReady: () => {
-          ejInstance.current = editor;
-        },
-        autofocus: true,
-        placeholder: 'Enter description here.',
-        data: defaultData,
-        onChange: async () => {
-          const content = await editor.saver.save();
-          onChange(content);
-        },
-        tools: {
-          header: Header,
-          list: List,
-          image: ImageTool,
-        },
-        readOnly: readOnly,
-      });
+      initializeEditor(
+        ejInstance,
+        didMount,
+        id,
+        defaultData,
+        onChange,
+        readOnly,
+      );
     }, [defaultData, readOnly]);
 
-    // This will run only once
     useEffect(() => {
       if (ejInstance.current === null) {
         initEditor();
       }
       return () => {
-        // Ensure cleanup happens fully
         if (ejInstance.current) {
           ejInstance.current.destroy();
           ejInstance.current = null;
