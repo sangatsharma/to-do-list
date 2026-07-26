@@ -3,30 +3,17 @@ import { useEffect } from 'react';
 
 const InfiniteScroll = () => {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteScroll();
-
   const loadMore = () => {
     if (hasNextPage) {
       fetchNextPage();
     }
   };
-
-  const handleScroll = () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-      loadMore();
-    }
-  };
-
-  const checkContentHeight = () => {
-    if (
-      document.body.offsetHeight < window.innerHeight &&
-      hasNextPage &&
-      !isFetching
-    ) {
-      fetchNextPage();
-    }
-  };
-
   useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        loadMore();
+      }
+    };
     if (!hasNextPage) {
       window.removeEventListener('scroll', handleScroll);
     }
@@ -34,7 +21,17 @@ const InfiniteScroll = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [hasNextPage]);
 
+  // Check for insufficient content and load more
   useEffect(() => {
+    const checkContentHeight = () => {
+      if (
+        document.body.offsetHeight < window.innerHeight &&
+        hasNextPage &&
+        !isFetching
+      ) {
+        fetchNextPage();
+      }
+    };
     checkContentHeight();
   }, [data, hasNextPage, isFetching]);
 
