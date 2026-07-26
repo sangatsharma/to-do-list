@@ -6,56 +6,49 @@ interface IBlockRendererProps {
   data: OutputData;
 }
 
-const renderHeader = (block: OutputBlockData): React.ReactNode => {
-  return React.createElement(`h${block.data.level}`, {}, block.data.text);
-};
-
-const renderParagraph = (block: OutputBlockData): React.ReactNode => {
-  return <p>{block.data.text}</p>;
-};
-
-const renderList = (block: OutputBlockData): React.ReactNode => {
-  switch (block.data.style) {
-    case 'ordered':
-      return (
-        <ol type={block.data.meta?.counterType === 'numeric' ? '1' : 'A'}>
-          {block.data.items?.map((item: TItems, index: number) => (
-            <li key={index}>{item.content}</li>
-          ))}
-        </ol>
-      );
-    case 'unordered':
-      return (
-        <ul>
-          {block.data.items?.map((item: TItems, index: number) => (
-            <li key={index}>{item.content}</li>
-          ))}
-        </ul>
-      );
-    case 'checklist':
-      return (
-        <ul>
-          {block.data.items?.map((item: TItems, index: number) => (
-            <li key={index}>
-              <input type="checkbox" checked={item.meta?.checked} readOnly />
-              <span>{item.content}</span>
-            </li>
-          ))}
-        </ul>
-      );
-    default:
-      return null;
-  }
-};
-
 const renderBlock = (block: OutputBlockData): React.ReactNode => {
   switch (block.type) {
     case 'header':
-      return renderHeader(block);
+      return React.createElement(`h${block.data.level}`, {}, block.data.text);
     case 'paragraph':
-      return renderParagraph(block);
+      return <p>{block.data.text}</p>;
     case 'list':
-      return renderList(block);
+      switch (block.data.style) {
+        case 'ordered':
+          return (
+            <ol type={block.data.meta?.counterType === 'numeric' ? '1' : 'A'}>
+              {block.data.items?.map((item: TItems, index: number) => (
+                <li key={index}>{item.content}</li>
+              ))}
+            </ol>
+          );
+        case 'unordered':
+          return (
+            <ul>
+              {block.data.items?.map((item: TItems, index: number) => (
+                <li key={index}>{item.content}</li>
+              ))}
+            </ul>
+          );
+        case 'checklist':
+          return (
+            <ul>
+              {block.data.items?.map((item: TItems, index: number) => (
+                <li key={index}>
+                  <input
+                    type="checkbox"
+                    checked={item.meta?.checked}
+                    readOnly
+                  />
+                  <span>{item.content}</span>
+                </li>
+              ))}
+            </ul>
+          );
+        default:
+          return null;
+      }
+
     default:
       return null;
   }
